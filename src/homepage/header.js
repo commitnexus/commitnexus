@@ -7,7 +7,7 @@ const Head = () => {
     <div className="navv" >
       <div className="brand">
       <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" />
-      <b>DataHubAra</b><br />
+      <b>Commitnexus</b><br />
         </div>  {/* This is the brand */}
         
         <div className="navitems">

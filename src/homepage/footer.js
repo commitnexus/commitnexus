@@ -6,7 +6,7 @@ const Footer = () => {
     <footer style={footerStyle}>
       <div style={containerStyle}>
         <div style={leftStyle}>
-          <p>&copy; 2025 DataHubAra. All rights reserved.</p>
+          <p>&copy; 2025 Commitnexus. All rights reserved.</p>
         </div>
         <div style={rightStyle}>
           <a href="/terms" style={linkStyle}>Terms of Service</a>
