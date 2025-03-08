@@ -1,0 +1,115 @@
+h1{
+    color: aliceblue;
+    margin: 0px;
+}
+ p{
+    color: aliceblue;
+ }
+
+ 
+  .container {
+    display: flex;
+    justify-content: space-between; /* Adds space between content */
+    gap: 20px; /* Adds spacing between divs */
+  }
+  
+  .content-div {
+    flex: 1; /* Takes up available space */
+    max-width: 70%; /* Limits width */
+  }
+  
+  .imagediv {
+    flex: 1; /* Takes up available space */
+    display: flex;
+    justify-content: center; /* Centers the image */
+  }
+  
+  .image-style {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+
+
+.content-div{
+    width: 45%;
+    padding: 100px;
+    padding-top: 170px;
+}
+
+.button{
+    width: 75%;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    background: linear-gradient(70deg, rgb(0, 0, 178), rgb(0, 195, 255));
+    margin-top: 15px;
+
+}
+
+.button2{
+    width: 30%;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    background: linear-gradient(70deg, rgb(0, 0, 178), rgb(0, 195, 255));
+    margin-top: 15px;
+    align-items: center;
+
+}
+
+.heading{
+    margin-left: 90px;
+}
+
+.heading2{
+    text-align: center;
+    margin-top: 15px;
+    color: rgb(0, 85, 255);
+}
+
+.heading3{
+    color: aliceblue;
+    font-size: large;
+    line-height: 30px;
+    
+}
+
+.databutton{
+    margin: 40px 34%;
+
+}
+
+.div{
+    display: flex;
+}
+
+.div1{
+    width: 50%;
+}
+.div2{
+    width: 50%;
+    padding-right: 90px;
+    margin-top: 30px;
+}
+
+.div3{
+    width: 70%;
+}
+.div4{
+    width: 30%;
+    padding-right: 90px;
+    margin-top: 9%;
+}
+
+
+.deepak .div2{
+    margin-left: 70px;
+    width: 50%;
+}
+
+.deepak .div2 .div1{
+    width: 75%;
+}

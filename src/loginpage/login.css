@@ -1,0 +1,114 @@
+/* login.css */
+
+/* Full-page background */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(0, 2, 12); /* Dark background */
+  }
+  
+  /* Login box */
+  .login-box {
+    background: rgb(24, 24, 24); /* Darker container */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    text-align: center;
+  }
+  
+  /* Heading */
+  .login-box h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Input fields */
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    color: #bbb;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .input-group input:focus {
+    border-color: #4a90e2;
+  }
+  
+  /* Remember me & Forgot password */
+  .login-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #bbb;
+    margin-bottom: 15px;
+  }
+  
+  .login-options a {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+  
+  .login-options a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Login button */
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background: #357abd;
+  }
+  
+  /* Signup link */
+  .signup-link {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #bbb;
+  }
+  
+  .signup-link a {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 400px) {
+    .login-box {
+      width: 90%;
+    }
+  }
+  

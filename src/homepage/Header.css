@@ -1,0 +1,59 @@
+.brand {
+  color: aliceblue;
+  position: absolute;
+  top: 20px;
+  left: 35px;
+  font-size: 24px;
+  z-index: 1001;
+}
+
+.navv {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color:  rgb(0, 2, 12); /* Optional: Improve navbar visibility */
+  z-index: 1000;
+}
+
+img {
+  position: relative;
+  top: 7px;
+  width: 28px;
+  padding-right: 3px;
+}
+
+.navitems ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navitems ul li {
+  padding: 30px 20px;
+}
+
+.navitems ul li a {
+  text-decoration: none;
+  color: aliceblue;
+  padding-bottom: 5px;
+}
+
+.navitems ul li a:hover {
+  color: aliceblue;
+  border-bottom: 2px solid rgb(72, 72, 72);
+}
+
+.navitems ul li a:focus {
+  border-bottom: 2px solid rgb(0, 136, 255);
+}
+
+.button1 {
+  background: linear-gradient(70deg, rgb(0, 0, 178), rgb(0, 195, 255));
+  width: 87px;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: auto; /* Adjusts alignment */
+  border: none;
+}
