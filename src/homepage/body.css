@@ -1,45 +1,59 @@
-h1{
-    color: aliceblue;
-    margin: 0px;
-}
- p{
-    color: aliceblue;
- }
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    width: 100%;
+    max-width: 100vw; /* Full width */
+    overflow-x: hidden;
+    background: transparent;
+    color: #ffffff;
+  }
+  
+  /* Main Container */
+  .deepak {
+    width: 100%;
+    padding: 90px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Flexbox for Two-Column Layout */
+  .div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+    width: 100%;
+    max-width: 1300px;
+  }
+  
+  /* Left Side (Text) */
+  .div3 {
+    flex: 1;
+    max-width: 100%;
+  }
+  
+  /* Right Side (Image) */
+  .div4 {
+    flex: 1;
+    max-width: 50%;
+    text-align: center;
+  }
 
- 
-  .container {
-    display: flex;
-    justify-content: space-between; /* Adds space between content */
-    gap: 20px; /* Adds spacing between divs */
-  }
-  
-  .content-div {
-    flex: 1; /* Takes up available space */
-    max-width: 70%; /* Limits width */
-  }
-  
-  .imagediv {
-    flex: 1; /* Takes up available space */
-    display: flex;
-    justify-content: center; /* Centers the image */
-  }
   
   .image-style {
     width: 100%;
     max-width: 400px;
     height: auto;
-    border-radius: 10px;
   }
   
-
-
-.content-div{
-    width: 45%;
-    padding: 100px;
-    padding-top: 170px;
-}
-
-.button{
+  /* Buttons */
+  .button{
     width: 75%;
     height: 30px;
     border-radius: 6px;
@@ -50,66 +64,58 @@ h1{
 }
 
 .button2{
-    width: 30%;
-    height: 30px;
-    border-radius: 6px;
-    border: none;
-    background: linear-gradient(70deg, rgb(0, 0, 178), rgb(0, 195, 255));
-    margin-top: 15px;
-    align-items: center;
+  width: 30%;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(70deg, rgb(0, 0, 178), rgb(0, 195, 255));
+  margin-top: 75px;
+  align-items: center;
+  margin-bottom: 70px;
 
+}
+
+.button:hover,
+.button2:hover {
+  background: #128cff;
+  color: #000;
+  box-shadow: 0px 0px 13px #00b7ff;
+}
+
+h1{
+  color: #7fb3e4;
 }
 
 .heading{
-    margin-left: 90px;
-}
-
-.heading2{
-    text-align: center;
-    margin-top: 15px;
-    color: rgb(0, 85, 255);
+  padding-left: -50%;
 }
 
 .heading3{
-    color: aliceblue;
-    font-size: large;
-    line-height: 30px;
-    
+  font-size: large;
 }
+  /* Responsive Design */
+  
+  /* ✅ Medium Screens (Tablets & Small Laptops) */
+  @media (max-width: 1024px) {
+    .div {
+      flex-direction: column; /* Stack on small screens */
+      text-align: center;
+    }
 
-.databutton{
-    margin: 40px 34%;
-
-}
-
-.div{
-    display: flex;
-}
-
-.div1{
-    width: 50%;
-}
-.div2{
-    width: 50%;
-    padding-right: 90px;
-    margin-top: 30px;
-}
-
-.div3{
-    width: 70%;
-}
-.div4{
-    width: 30%;
-    padding-right: 90px;
-    margin-top: 9%;
-}
-
-
-.deepak .div2{
-    margin-left: 70px;
-    width: 50%;
-}
-
-.deepak .div2 .div1{
-    width: 75%;
-}
+    .deepak{
+        padding: 13%;
+    }
+  
+    .div3, .div4 {
+      max-width: 100%; /* Full width */
+    }
+  }
+  
+  /* ✅ Small Screens (Phones) */
+  @media (max-width: 768px) {
+    .div {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
