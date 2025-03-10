@@ -1,21 +1,45 @@
-import React from "react";
-import Head from "../homepage/header";
+import { FaShareAlt, FaCloud, FaMagic, FaLock, FaSync, FaFolderOpen } from "react-icons/fa";
 import "./services.css";
+import Head from "../homepage/header";
+import { useNavigate } from "react-router-dom";
 
-const SimplePage = () => {
+const features = [
+  { title: "Data Sharing", icon: <FaShareAlt />, description: "Seamless file transfer between devices.", path: "/data-sharing" },
+  { title: "AI File Restoring", icon: <FaMagic />, description: "Automatically restore and organize your files.", path: "/ai-file-restoring" },
+  { title: "Secure Cloud Storage", icon: <FaCloud />, description: "Encrypted cloud storage for maximum security.", path: "/secure-cloud-storage" },
+  { title: "End-to-End Encryption", icon: <FaLock />, description: "Your data remains private and secure.", path: "/end-to-end-encryption" },
+  { title: "Auto File Syncing", icon: <FaSync />, description: "Sync files across multiple devices effortlessly.", path: "/auto-file-syncing" },
+  { title: "Easy File Access", icon: <FaFolderOpen />, description: "Access your files anytime, anywhere.", path: "/easy-file-access" },
+];
+
+export default function FeaturesPage() {
+  const navigate = useNavigate();
+
+  const handleClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <div className="container">
-        <Head/>
-      <div className="section-container">
-        {[...Array(4)].map((_, index) => (
-          <div key={index} className="section-card">
-            <h2 className="section-title">Section {index + 1}</h2>
-            <p className="section-content">This is section {index + 1} with some content.</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+    <>
+      <Head/>
 
-export default SimplePage;
+      <div className="features-container">
+        <h1 className="features-title">Commit Nexus
+          <p className="about-subtext">
+            Commit to efficiency, connect without limits – welcome to CommitNexus.
+          </p>
+        </h1>
+
+        <div className="features-grid">
+          {features.map((feature, index) => (
+            <button key={index} className="feature-card" onClick={() => handleClick(feature.path)}>
+              <div className="feature-icon">{feature.icon}</div>
+              <h2 className="feature-title">{feature.title}</h2>
+              <p className="feature-description">{feature.description}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
