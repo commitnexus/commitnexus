@@ -25,7 +25,7 @@ export default function FeaturesPage() {
 
       <div className="features-container">
         <h1 className="features-title">Commit Nexus
-          <p className="about-subtext">
+          <p className="feature-description2">
             Commit to efficiency, connect without limits – welcome to CommitNexus.
           </p>
         </h1>

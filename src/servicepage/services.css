@@ -75,5 +75,10 @@ body {
 /* Description Styling */
 .feature-description {
   font-size: 1rem;
+  color: #90a2bd;
+}
+
+.feature-description2 {
+  font-size: 1.5rem;
   color: #4b5563;
 }
