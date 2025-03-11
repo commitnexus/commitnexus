@@ -8,6 +8,7 @@ import Contact from "./contactpage/contact";
 
 import './App.css';
 import SimplePage from "./servicepage/services";
+import DataSharing from "./servicepage/dara-sharing.js";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<SimplePage />} />
+          <Route path="/data-sharing" element={<DataSharing/>}/>
         </Routes>
       </div>
     </Router>
