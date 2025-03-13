@@ -62,7 +62,7 @@ const DataSharing = () => {
   // Render folder & file structure
   const renderFolderTree = (tree, parentPath = "") => {
     return (
-      <ul>
+      <ul style={{ listStyleType: "none", paddingLeft: "1rem" }}>
         {Object.entries(tree)
           .sort(([, a], [, b]) => {
             // Folders first, then files
@@ -73,10 +73,11 @@ const DataSharing = () => {
           .map(([key, value], index) => {
             const fullPath = parentPath ? `${parentPath}/${key}` : key;
             const isFolder = value.children !== undefined;
+            const isExpanded = expandedFolders[fullPath];
   
             return (
-              <li key={index}>
-                {/* Folder Display */}
+              <li key={index} style={{ padding: "5px 0" }}>
+                {/* Folder Display with Arrow Bullets */}
                 {isFolder ? (
                   <div
                     onClick={() => toggleFolder(fullPath)}
@@ -85,22 +86,34 @@ const DataSharing = () => {
                       fontWeight: "bold",
                       textAlign: "left",
                       padding: "5px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
+                    <span style={{ marginRight: "5px" }}>
+                      {isExpanded ? "▼" : "▶"}
+                    </span>
                     📁 {key}
                   </div>
                 ) : null}
   
                 {/* Expand Folder */}
-                {isFolder && expandedFolders[fullPath] && (
+                {isFolder && isExpanded && (
                   <div style={{ paddingLeft: "1.5rem", textAlign: "left" }}>
                     {renderFolderTree(value.children, fullPath)}
                   </div>
                 )}
   
-                {/* File Display */}
+                {/* File Display with Arrow */}
                 {!isFolder && value.name && (
-                  <div style={{ padding: "0.2rem" }}>
+                  <div
+                    style={{
+                      padding: "0.2rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span style={{ marginRight: "5px" }}>➜</span>
                     {getFileIcon(value.name)} {value.name}
                   </div>
                 )}
@@ -110,6 +123,7 @@ const DataSharing = () => {
       </ul>
     );
   };
+  
   
   
 
@@ -155,7 +169,7 @@ const DataSharing = () => {
 
         {/* Display folder structure */}
         {Object.keys(folderStructure).length > 0 && (
-          <div className="upload-section">
+          <div>
             <h3 style={{ padding:"10px"}}>Selected Folder Structure:</h3>
             <div className="ul-style" style={{ width: "750px" }}>{renderFolderTree(folderStructure)}</div>
           </div>
