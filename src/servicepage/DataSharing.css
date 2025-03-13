@@ -120,7 +120,46 @@
   
 
 
-
-  .ul-style{
-    background-color: #16213e;
+  .ul-style {
+    background-color: #00000000;
+    width: 800px; /* Adjust width as needed */
+    max-height: 400px; /* Set a max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 10px;
+    border-radius: 8px;
+    justify-items: center;
   }
+  
+  /* Optional: Customize the scrollbar */
+  .ul-style::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .ul-style::-webkit-scrollbar-thumb {
+    background-color: #00d4ff;
+    border-radius: 4px;
+  }
+  
+  .ul-style::-webkit-scrollbar-track {
+    background-color: #0f3460;
+  }
+  
+
+  .view-folders-button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .view-folders-button:hover {
+    background-color: #0056b3;
+  }
+  
