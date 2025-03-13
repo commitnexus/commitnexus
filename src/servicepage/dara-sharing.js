@@ -171,7 +171,7 @@ const DataSharing = () => {
         {Object.keys(folderStructure).length > 0 && (
           <div>
             <h3 style={{ padding:"10px"}}>Selected Folder Structure:</h3>
-            <div className="ul-style" style={{ width: "750px" }}>{renderFolderTree(folderStructure)}</div>
+            <div className="ul-style" style={{ width: "100%" }}>{renderFolderTree(folderStructure)}</div>
           </div>
         )}
 

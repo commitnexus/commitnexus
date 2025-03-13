@@ -122,7 +122,7 @@
 
   .ul-style {
     background-color: #00000000;
-    width: 800px; /* Adjust width as needed */
+    width: 1800px; /* Adjust width as needed */
     max-height: 400px; /* Set a max height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
