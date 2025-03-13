@@ -9,19 +9,66 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     height: 100vh;
   }
+
+/* Responsive Design for Tablets & Smaller Screens */
+@media (max-width: 1024px) {
+    .data-sharing-container {
+        margin-top: 10%;
+        width: 95%;
+        padding: 7% 5%;
+        min-height: auto; /* Remove fixed height */
+    }
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    .data-sharing-container {
+        margin-top: 10%;
+        width: 100%;
+        padding: 10% 5%;
+        min-height: auto;
+    }
+}
+
   
   .upload-section {
-    margin: 20px 0;
-  }
-  
-  .upload-section input {
+    margin: 10px 0;
     padding: 10px;
-    background-color: #16213e;
-    color: white;
-    border: 1px solid #0f3460;
-    border-radius: 5px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.upload-section label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
     cursor: pointer;
-  }
+    background: #0f3460;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease;
+    display: inline-block;
+}
+
+.upload-section label:hover {
+    background: #1b4fd9;
+    transform: scale(1.05);
+}
+
+.upload-section input {
+    display: none; /* Hide default input */
+}
+
+.upload-info {
+    font-size: 14px;
+    color: #d1d1d1;
+    margin-top: 5px;
+}
+
 /*   
   .file-list {
     margin-top: 20px;
@@ -121,14 +168,14 @@
 
 
   .ul-style {
-    background-color: #00000000;
-    width: 1800px; /* Adjust width as needed */
+    background-color: #07061a58;
+    width: 2000px; /* Adjust width as needed */
     max-height: 400px; /* Set a max height */
     overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: auto; /* Prevent horizontal scrolling */
     padding: 10px;
     border-radius: 8px;
-    justify-items: center;
+    justify-items: left;
   }
   
   /* Optional: Customize the scrollbar */

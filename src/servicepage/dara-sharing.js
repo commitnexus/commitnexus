@@ -159,13 +159,14 @@ const DataSharing = () => {
     <>
       <Head />
       <div className="data-sharing-container">
-        <h2>Data Sharing</h2>
-        <p>Share your individual files and folders securely.</p>
+        <h1>Data Sharing</h1>
+        <p style={{padding:"20px 0px 0px 0px"}}>Share your individual files and folders securely.</p>
 
         <div className="upload-section">
-          <input type="file" multiple webkitdirectory="" directory="" onChange={handleFileChange} />
-          
+            <label htmlFor="file-upload">📂 Choose Files</label>
+            <input type="file" multiple webkitdirectory="" directory="" id="file-upload" onChange={handleFileChange} />
         </div>
+
 
         {/* Display folder structure */}
         {Object.keys(folderStructure).length > 0 && (
