@@ -1,0 +1,44 @@
+const mongoose = require("mongoose");
+
+const FolderSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true, // Folder or file name
+  },
+  type: {
+    type: String,
+    enum: ["folder", "file"], // Determines if it's a folder or a file
+    required: true,
+  },
+  path: {
+    type: String,
+    required: true, // Full path (e.g., "root/folder1/file.txt")
+  },
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Folder", // Parent folder reference (NULL for root)
+    default: null,
+  },
+  size: {
+    type: Number, // File size (only for files)
+    default: 0,
+  },
+  children: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Folder", // Nested folders or files
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now, // Timestamp for creation
+  },
+  expiresAt: {
+    type: Date,
+    default: () => new Date(Date.now() + 2 * 60 * 60 * 1000), // Auto-delete after 2 hours
+    index: { expires: 7200 }, // TTL index (7200 seconds = 2 hours)
+  },
+});
+
+const Folder = mongoose.model("Folder", FolderSchema);
+module.exports = Folder;

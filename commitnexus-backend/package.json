@@ -1,0 +1,13 @@
+{
+  "name": "commitnexus-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "mongoose": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0"
+  }
+}
