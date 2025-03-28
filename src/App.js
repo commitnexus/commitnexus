@@ -9,6 +9,8 @@ import Contact from "./contactpage/contact";
 import './App.css';
 import SimplePage from "./servicepage/services";
 import DataSharing from "./servicepage/dara-sharing.js";
+import FileAccess from "./servicepage/fileaccess.js";
+
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<SimplePage />} />
           <Route path="/data-sharing" element={<DataSharing/>}/>
+          <Route path="/file-access" element={<FileAccess/>}/>
+
         </Routes>
       </div>
     </Router>

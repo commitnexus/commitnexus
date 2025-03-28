@@ -1,147 +1,187 @@
-import React, { useState } from "react";
-import "./DataSharing.css";
-import Head from "../homepage/header";
+const express = require("express");
+const multer = require("multer");
+const Folder = require("../models/Folder");
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+const QRCode = require("qrcode");
 
-const DataSharing = () => {
-  const [folderStructure, setFolderStructure] = useState({});
-  const [expandedFolders, setExpandedFolders] = useState({});
+const router = express.Router();
 
-  // File type logos
-  const fileIcons = {
-    html: "<>",
-    css: "🎨",
-    js: "⚡",
-    jsx: "⚛️",
-    ts: "TS",
-    tsx: "TSX",
-    py: "🐍",
-    java: "☕",
-    cpp: "C++",
-    c: "C",
-    cs: "C#",
-    php: "🐘",
-    swift: "🦊",
-    go: "🐹",
-    kotlin: "📱",
-    ruby: "💎",
-    json: "🗂️",
-    django: "🐍",
-    rs: "🦀",
-    pl: "🚀",
-    sh: "🛠️",
-    node: "🟢",
-    md: "📄",
-    lisp: "🦜",
-    dart: "🐦",
-    sol: "🔗",
-    r: "🎛️",
-    default: "📁", // Default folder icon
-  };
+// 📂 Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, "../uploads");
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-  // Get icon based on file extension
-  const getFileIcon = (filename) => {
-    const ext = filename.split(".").pop().toLowerCase();
-    return fileIcons[ext] || "📄"; // Default document icon
-  };
+const upload = multer({ storage });
 
-  // Build folder tree
-  const buildFolderTree = (files) => {
-    const tree = {};
-    files.forEach((file) => {
-      const pathParts = file.webkitRelativePath.split("/");
-      let currentLevel = tree;
+// 📌 1️⃣ Upload Folder & Files (POST)
+router.post("/upload", upload.array("files"), async (req, res) => {
+  console.log(`[${new Date().toISOString()}] 📤 Upload request received.`);
 
-      pathParts.forEach((part, index) => {
-        if (!currentLevel[part]) {
-          currentLevel[part] = index === pathParts.length - 1 ? file.name : {};
-        }
-        currentLevel = currentLevel[part];
+  try {
+    if (!req.files || req.files.length === 0) {
+      console.log(`[${new Date().toISOString()}] ❌ No files uploaded.`);
+      return res.status(400).json({ error: "No files uploaded" });
+    }
+
+    // ✅ Generate a Unique Folder Code
+    const folderCode = crypto.randomInt(1000, 9999).toString();
+    console.log(`[${new Date().toISOString()}] 🔢 Folder code: ${folderCode}`);
+
+    const folderPath = path.join(__dirname, "../uploads", folderCode);
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath, { recursive: true });
+    }
+
+    let fileResponses = [];
+
+    for (let file of req.files) {
+      console.log(`[${new Date().toISOString()}] 🔹 Processing file: ${file.originalname}`);
+
+      const fileDestination = path.join(folderPath, file.originalname);
+      fs.renameSync(file.path, fileDestination);
+
+      const fileUrl = `https://commitdatabase.vercel.app/api/folders/${folderCode}`;
+
+      const newFile = new Folder({
+        name: file.originalname,
+        type: "file",
+        path: fileDestination,
+        size: file.size,
+        code: folderCode,
+        url: fileUrl,
       });
+
+      await newFile.save();
+      fileResponses.push({ name: file.originalname, url: fileUrl });
+    }
+
+    // ✅ Generate QR Code for the Folder URL
+    const folderUrl = `https://commitdatabase.vercel.app/api/folders/${folderCode}`;
+    const qrCodePath = path.join(folderPath, `${folderCode}.png`);
+    await QRCode.toFile(qrCodePath, folderUrl);
+    console.log(`[${new Date().toISOString()}] 📸 QR Code generated: ${qrCodePath}`);
+
+    res.status(201).json({
+      message: "Folder uploaded successfully",
+      folderCode,
+      folderUrl,
+      files: fileResponses,
+      qrCode: `https://commitdatabase.vercel.app/api/folders/${folderCode}/qr`,
     });
-    return tree;
-  };
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] ❌ Upload error:`, error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
-  // Handle file selection
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files);
-    setFolderStructure(buildFolderTree(files));
-  };
 
-  // Toggle folder view
-  const toggleFolder = (folderPath) => {
-    setExpandedFolders((prev) => ({
-      ...prev,
-      [folderPath]: !prev[folderPath],
+
+// 📌 Get QR Code for a Folder (GET)
+router.get("/folders/:code/qr", async (req, res) => {
+  console.log(`[${new Date().toISOString()}] 🔍 Fetching QR Code for: ${req.params.code}`);
+
+  try {
+    const qrCodePath = path.join(__dirname, "../uploads", req.params.code, `${req.params.code}.png`);
+
+    if (!fs.existsSync(qrCodePath)) {
+      console.log(`[${new Date().toISOString()}] ❌ QR Code not found for: ${req.params.code}`);
+      return res.status(404).send("QR Code not found.");
+    }
+
+    res.sendFile(qrCodePath);
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] ❌ QR Code retrieval error:`, error);
+    res.status(500).send("Server error.");
+  }
+});
+
+
+
+// 📌 Get Folder Contents by Unique Code (GET)
+router.get("/folders/:code", async (req, res) => {
+  console.log(`[${new Date().toISOString()}] 🔍 Fetching folder: ${req.params.code}`);
+
+  try {
+    const folderPath = path.join(__dirname, "../uploads", req.params.code);
+
+    // ❌ Check if folder exists & it's a directory
+    if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
+      console.log(`[${new Date().toISOString()}] ❌ Invalid folder: ${req.params.code} is not a directory.`);
+      return res.status(404).send("Folder not found or is not a directory.");
+    }
+
+    // ✅ Read files from the folder
+    const files = fs.readdirSync(folderPath);
+
+    // ❌ If folder exists but has no files
+    if (files.length === 0) {
+      return res.status(404).send("No files found in this folder.");
+    }
+
+    // ✅ Generate file URLs
+    const fileLinks = files.map(file => ({
+      name: file,
+      url: `${req.protocol}://${req.get("host")}/api/download/${req.params.code}/${encodeURIComponent(file)}`
     }));
-  };
 
-  // Render folder & file structure with folders first
-const renderFolderTree = (tree, parentPath = "") => {
-  const entries = Object.entries(tree);
-  
-  // Separate folders and files
-  const folders = entries.filter(([_, value]) => typeof value === "object");
-  const files = entries.filter(([_, value]) => typeof value !== "object");
-
-  return (
-    <ul>
-      {[...folders, ...files].map(([key, value], index) => {
-        const fullPath = parentPath ? `${parentPath}/${key}` : key;
-        const isFolder = typeof value === "object";
-
-        return (
-          <li key={index}  style={{ }}>
-            {isFolder ? (
-              <div onClick={() => toggleFolder(fullPath)} style={{ cursor: "pointer", fontWeight: "bold", textAlign: "left", padding: "5px"}}>
-                📁 {key}
-              </div>
-            ) : null}
-
-            {isFolder && expandedFolders[fullPath] && (
-              <div style={{ paddingLeft: "1.5rem", textAlign: "left" }}>
-                {renderFolderTree(value, fullPath)}
-              </div>
-            )}
-
-            {!isFolder && (
-              <div style={{ padding: "0.2rem" }}>
-                {getFileIcon(value)} {value}
-              </div>
-            )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+    res.send(`
+      <html>
+        <head>
+          <title>Files in Folder ${req.params.code}</title>
+          <style>
+            body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+            .file-list { text-align: left; max-width: 500px; margin: auto; }
+            a { display: block; margin: 10px 0; color: #007bff; text-decoration: none; font-size: 16px; }
+          </style>
+        </head>
+        <body>
+          <h2>📂 Folder ${req.params.code}</h2>
+          <p>Click a file to download:</p>
+          <div class="file-list">
+            ${fileLinks.map(file => `<a href="${file.url}" download>${file.name}</a>`).join("")}
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] ❌ Folder retrieval error:`, error);
+    res.status(500).send("Server error.");
+  }
+});
 
 
-  return (
-    <>
-      <Head />
-      <div className="data-sharing-container">
-        <h2>Data Sharing</h2>
-        <p>Share your individual files and folders securely.</p>
+// 📌 3️⃣ Download Specific File from Folder (GET)
+router.get("/download/:code/:filename", async (req, res) => {
+  console.log(`[${new Date().toISOString()}] 📥 Download request: ${req.params.filename}`);
 
-        <div className="upload-section">
-          <input type="file" multiple webkitdirectory="" directory="" onChange={handleFileChange} />
-        </div>
+  try {
+    const folderPath = path.join(__dirname, "../uploads", req.params.code);
+    const filePath = path.join(folderPath, req.params.filename);
 
-        <div >
-          {Object.keys(folderStructure).length > 0 && (
-            <div >
-              <h3>Selected Folders:</h3>
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <div className="ul-style" style={{ width: "600px" }}>
-                     {renderFolderTree(folderStructure)}
-                  </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </>
-  );
-};
+    // ❌ Check if the file exists
+    if (!fs.existsSync(filePath)) {
+      console.log(`[${new Date().toISOString()}] ❌ File not found: ${req.params.filename}`);
+      return res.status(404).send("File not found.");
+    }
 
-export default DataSharing;
+    console.log(`[${new Date().toISOString()}] ✅ Serving file: ${req.params.filename}`);
+    res.download(filePath);
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] ❌ File download error:`, error);
+    res.status(500).send("Server error.");
+  }
+});
+
+
+module.exports = router;

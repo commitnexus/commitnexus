@@ -9,7 +9,7 @@ const features = [
   { title: "Secure Cloud Storage", icon: <FaCloud />, description: "Encrypted cloud storage for maximum security.", path: "/secure-cloud-storage" },
   { title: "End-to-End Encryption", icon: <FaLock />, description: "Your data remains private and secure.", path: "/end-to-end-encryption" },
   { title: "Auto File Syncing", icon: <FaSync />, description: "Sync files across multiple devices effortlessly.", path: "/auto-file-syncing" },
-  { title: "Easy File Access", icon: <FaFolderOpen />, description: "Access your files anytime, anywhere.", path: "/easy-file-access" },
+  { title: "Easy File Access", icon: <FaFolderOpen />, description: "Access your files anytime, anywhere.", path: "/file-access" },
 ];
 
 export default function FeaturesPage() {

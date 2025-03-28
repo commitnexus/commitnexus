@@ -1,21 +1,21 @@
 import connectDB from "./db";
 import folderRoutes from "./routes/folderRoutes";
-import { createRouter } from "next-connect";
+import express from "express";
+import { createServer } from "@vercel/node"; // ✅ Required for Vercel deployment
 
-export default async function handler(req, res) {
-  await connectDB(); // Ensure MongoDB is connected
+const app = express();
+app.use(express.json());
 
-  const router = createRouter();
+// ✅ Connect to MongoDB
+connectDB();
 
-  // ✅ Add Routes
-  router.use("/api/folders", folderRoutes);
+// ✅ Add Routes
+app.use("/api/folders", folderRoutes);
 
-  // ✅ Default Route
-  router.get("/", (req, res) => {
-    res.status(200).json({
-      message: "love you nashmitha💕💕💕💕💕",
-    });
-  });
+// ✅ Default Route
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "🚀 Love you Nashmitha💕💕💕💕💕💕💕💕 Deepak" });
+});
 
-  return router.run(req, res);
-}
+// ✅ Export as a Vercel-compliant function
+export default createServer(app);
