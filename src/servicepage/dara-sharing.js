@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios"; 
 import "./DataSharing.css";
 import Head from "../homepage/header";
+import { useNavigate } from "react-router-dom";
 
 const DataSharing = () => {
   const [folderStructure, setFolderStructure] = useState({});
@@ -10,7 +11,7 @@ const DataSharing = () => {
   const [selectedFiles, setSelectedFiles] = useState([]); 
   const [uploadResponse, setUploadResponse] = useState(null);
   const [copied, setCopied] = useState(false);
-  const [error, setError] = useState(""); // Initialize error state
+  const [error, setError] = useState("");
 
 
   const handleCopy = () => {
@@ -204,10 +205,20 @@ const DataSharing = () => {
     
   };
 
+  const navigate = useNavigate();
+
+  const handleClick = (path) => {
+    navigate(path);
+  };
+  
+
   return (
     <div>
+      <button className="button5" onClick={()=>handleClick("/services")}> &lt; back</button>
       <Head />
+      
       <div className="data-sharing-container">
+
         <h1 style={{paddingBottom:"10px"}}>Data Sharing</h1>
         <h4 style={{ 
          fontWeight: "bold", 

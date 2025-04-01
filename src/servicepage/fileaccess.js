@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Head from "../homepage/header";
 import "./SlidingFields.css";
 import QrScanner from "qr-scanner";
-
+import { useNavigate } from "react-router-dom";
 
 export default function SlidingFields() {
   const [step, setStep] = useState(0);
@@ -85,10 +85,20 @@ export default function SlidingFields() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleClick = (path) => {
+    navigate(path);
+  };
+  
 
   return (
+    <div>
+              <button className="button3" onClick={()=>handleClick("/services")}> &lt; back</button>
+
     <div className="container">
         <Head />
+
       <div className="button-group">
         <button className="nav-button" onClick={() => openField(0)}>URL</button>
         <button className="nav-button" onClick={() => openField(1)}>File Code</button>
@@ -100,8 +110,6 @@ export default function SlidingFields() {
           animate={{ x: -step * 350 }}
           transition={{ type:"tween", stiffness: 100 }}
         >
-
-
 
              <div className="field">
         <label className="name">Enter URL:</label>
@@ -151,7 +159,6 @@ export default function SlidingFields() {
 
       </div>
       <div className="response-container">
-        <h3>Response:</h3>
         <pre className="response-text">{responseData}</pre>
         {error && <p className="error">{error}</p>}
       {data && (
@@ -167,6 +174,7 @@ export default function SlidingFields() {
         </div>
       )}
       </div>
+    </div>
     </div>
   );
 }

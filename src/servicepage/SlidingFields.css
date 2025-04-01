@@ -74,3 +74,32 @@
     border: none;
     cursor: pointer;
   }
+
+  .button3{
+    position: fixed;
+    background: none;
+    color: #ffffff85;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+    margin:8% 3%;    
+    }
+
+
+    
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+      align-items:flex-start;
+      padding: 6%;
+      width: 95%;
+      padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+      width: 100%;
+      padding: 10px;
+  }
+}
