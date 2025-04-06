@@ -45,7 +45,7 @@ export default function SlidingFields() {
       return;
     }
     try {
-      const url = `http://localhost:3000/api/folders/retrive/${code}`;
+      const url = `https://commitnexusdatabase.onrender.com/api/folders/retrive/${code}`;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Failed to fetch. Status: ${response.status}`);
       const result = await response.json();

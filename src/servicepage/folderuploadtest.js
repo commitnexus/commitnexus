@@ -19,7 +19,7 @@ function App() {
     formData.append("filePaths", JSON.stringify(filePaths));
 
     try {
-      const res = await axios.post("http://localhost:3000/api/upload-folder", formData, {
+      const res = await axios.post("https://commitnexusdatabase.onrender.com/api/upload-folder", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -195,7 +195,7 @@ const DataSharing = () => {
     formData.append("filePaths", JSON.stringify(filePaths));
 
     try {
-      const res = await axios.post("http://localhost:3000/api/upload", formData, {
+      const res = await axios.post("https://commitnexusdatabase.onrender.com/api/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
