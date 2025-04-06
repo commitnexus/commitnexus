@@ -1,0 +1,101 @@
+.auto-sync-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auto-sync-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #547db6;
+    margin-bottom: 10px;
+  }
+  
+  .auto-sync-description {
+    text-align: center;
+    color: #4b5563;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  
+  .auto-sync-box {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auto-sync-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .auto-sync-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px dashed #3b82f6;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .cloud-upload-icon {
+    width: 50px;
+    height: 50px;
+    color: #3b82f6;
+  }
+  
+  .auto-sync-selected {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .auto-sync-button {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .auto-sync-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .auto-sync-uploaded {
+    margin-top: 20px;
+  }
+  
+  .auto-sync-file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f3f4f6;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+  
+  .auto-sync-file-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .success-icon {
+    color: #10b981;
+  }
+  

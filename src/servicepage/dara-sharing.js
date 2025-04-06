@@ -3,6 +3,8 @@ import axios from "axios";
 import "./DataSharing.css";
 import Head from "../homepage/header";
 import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
+
 
 const DataSharing = () => {
   const [folderStructure, setFolderStructure] = useState({});
@@ -176,34 +178,39 @@ const DataSharing = () => {
   
 
   // Handle file upload when Submit button is clicked
-  const handleSubmitUpload = async () => {
-    if (selectedFiles.length === 0) {
-      alert("Please select files to upload.");
-      return;
+  async function handleFolderUpload() {
+    const files = selectedFiles;
+    if (!files.length) return alert("❌ No files selected");
+  
+    const formData = new FormData();
+    const filePaths = [];
+
+    for (let file of files) {
+      console.log("📁 File path:", file.webkitRelativePath);
+      filePaths.push(file.webkitRelativePath);
+      formData.append("files", file, file.webkitRelativePath);
     }
 
-    setUploadStatus("Uploading...");
-
-    const formData = new FormData();
-    selectedFiles.forEach((file) => {
-      formData.append("files", file);
-    });
+    // ✅ Send filePaths array as a JSON string
+    formData.append("filePaths", JSON.stringify(filePaths));
 
     try {
-      const response = await axios.post("https://commitnexusdatabase.onrender.com/api/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const res = await axios.post("http://localhost:3000/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-    
-      if (response.status === 201) {
-        setUploadStatus("✅ Files upload successful!");
-        setUploadResponse(response.data);  // Store response
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-      setUploadStatus("❌ Upload failed. Please try again.");
+
+      console.log("✅ Upload Success:", res.data);
+      
+      setUploadResponse(res.data); // <- this is needed to display the result!
+      setUploadStatus("Upload completed successfully!");
+    } catch (err) {
+      console.error("❌ Upload Error:", err);
+      alert("❌ Upload failed!");
     }
-    
-  };
+  }
+  
 
   const navigate = useNavigate();
 
@@ -219,8 +226,14 @@ const DataSharing = () => {
       
       <div className="data-sharing-container">
 
-        <h1 style={{paddingBottom:"10px"}}>Data Sharing</h1>
-        <h4 style={{ 
+      <motion.h1 
+        className="auto-sync-title"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        Data Sharing
+      </motion.h1>        <h4 style={{ 
          fontWeight: "bold", 
          textAlign: "center", 
          marginTop: "10px" 
@@ -250,11 +263,12 @@ const DataSharing = () => {
   type="file"
   id="folder-upload"
   multiple
-  webkitdirectory=""
+  webkitdirectory="true"
   directory=""
   onChange={handleFileChange}
   style={{ display: "none" }}
 />
+
   </div>
 
 </div>
@@ -270,7 +284,7 @@ const DataSharing = () => {
           </div>
         )}
 
-          <button onClick={handleSubmitUpload} disabled={selectedFiles.length === 0} className="submit-btn">
+          <button onClick={handleFolderUpload} disabled={selectedFiles.length === 0} className="submit-btn">
             Share Files
           </button>
 
@@ -339,6 +353,15 @@ const DataSharing = () => {
 
       {/* Show "Copied!" Message */}
       {copied && <p style={{ color: "green", fontSize: "14px" }}>✅ Copied!</p>}
+      {error && (
+  <>
+    <p style={{ color: "red" }}>❌ {error}</p>
+    <a href={uploadResponse.qrCode} download="QRCode.png">
+      ⬇️ Download QR Code
+    </a>
+  </>
+)}
+
       
         {/* Share Button */}
         {/* Share Button */}

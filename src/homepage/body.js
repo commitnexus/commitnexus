@@ -4,8 +4,16 @@ import Footer from "./footer";
 import "./Header.css";
 import "./body.css";
 import aiImage from "../homepage/ai.png";
+import seamlessdata from "../homepage/seamlessdatashare1.png";
+import airestore from "../homepage/ai restore.png";
+import securestore from "../homepage/securestorage.png";
 
 const Body = () => {
+
+  const clickHandle = (path) => {
+    window.location.href = path; // or use useNavigate() from react-router-dom
+  };
+  
   return (
     <>
       <Head />
@@ -30,7 +38,7 @@ const Body = () => {
         <h1 className="heading2">Seamless Data Transfer</h1>
         <div className="div">
           <div className="div4">
-          <img src={aiImage} alt="AI Illustration" className="image-style" />
+          <img src={seamlessdata} alt="AI Illustration" className="image-style" />
 
           </div>
           <div className="div3">
@@ -44,7 +52,9 @@ const Body = () => {
             </p>
           </div>
         </div>
-        <button className="button2 databutton">Transfer data &gt;</button>
+        <button className="button2 databutton" onClick={() => clickHandle("/data-sharing")}>
+  Transfer data &gt;
+</button>
 
         <h1 className="heading2">AI-Powered File Recovery</h1>
         <div className="div">
@@ -62,16 +72,17 @@ const Body = () => {
             </p>
           </div>
           <div className="div4">
-          <img src={aiImage} alt="AI Illustration" className="image-style" />
+          <img src={airestore} alt="AI Illustration" className="image-style" />
 
           </div>
         </div>
-        <button className="button2 databutton">AI file restoring &gt;</button>
+        <button className="button2 databutton" onClick={() => clickHandle("/ai-file-restoring")}>
+        AI file restoring &gt;</button>
 
         <h1 className="heading2">Secure Cloud Backup</h1>
         <div className="div">
           <div className="div4">
-          <img src={aiImage} alt="AI Illustration" className="image-style" />
+          <img src={securestore} alt="AI Illustration" className="image-style" />
 
           </div>
           <div className="div3">
@@ -87,7 +98,8 @@ const Body = () => {
             </p>
           </div>
         </div>
-        <button className="button2 databutton">Cloud storage &gt;</button>
+        <button className="button2 databutton" onClick={() => clickHandle("/secure-cloud-storage")}>
+        Cloud storage &gt;</button>
       </div>
       <Footer />
     </>
