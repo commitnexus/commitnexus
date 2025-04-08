@@ -9,13 +9,16 @@
     text-align: center;
     margin-bottom: 30px;
     font-weight: bold;
+    width: 900px;
+
   }
   
   .faq-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+    width: 100%;
+
   }
   
   .faq-item {
@@ -24,6 +27,7 @@
     padding: 15px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
   }
   
   .faq-question {
@@ -33,7 +37,7 @@
     font-weight: 600;
     cursor: pointer;
     text-align: left;
-    width: 100%;
+    min-width: 100%;
     color: #ffffff;
   }
   
