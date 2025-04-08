@@ -15,6 +15,7 @@ import Cloudstore from "./servicepage/cloudstorage.js";
 import Endtoend from "./servicepage/end-to-endencryption.js";
 import AutoSyncFiles from "./servicepage/autofilesyncing.js";
 import Test from "./servicepage/folderuploadtest.js";
+import PrivacyPolicy from "./info/privacypolicy.js";
 
 function App() {
   return (
@@ -34,10 +35,7 @@ function App() {
           <Route path="/end-to-end-encryption" element={<Endtoend/>}/>
           <Route path="/auto-file-syncing" element={<AutoSyncFiles/>}/>
           <Route path="/test" element={<Test/>}/>
-
-
-
-
+          <Route path="/privacy" element={<PrivacyPolicy/>}/>
 
         </Routes>
       </div>

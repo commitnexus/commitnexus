@@ -9,7 +9,7 @@ const Head = () => {
   return (
     <>
       <div className="navv">
-        <div className="brand">
+      <div className="brand">
           <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" />
           <b>Commitnexus</b>
         </div>
@@ -21,23 +21,43 @@ const Head = () => {
 
         <div className={`navitems ${menuOpen ? "open" : ""}`}>
           <ul>
-            <li>
-              <a href="/" className={location.pathname === "/" ? "active" : ""}>Home</a>
-            </li>
+         <li>
+         
+        </li>
             <li>
               <a href="/services" className={location.pathname === "/services" ? "active" : ""}>Services</a>
             </li>
             <li>
-              <a href="/about" className={location.pathname === "/about" ? "active" : ""}>About</a>
+              <a href="/services" className={location.pathname === "/blog" ? "active" : ""}>Blog</a>
             </li>
             <li>
-              <a href="/contact" className={location.pathname === "/contact" ? "active" : ""}>Contact</a>
+              <a href="/services" className={location.pathname === "/terms" ? "active" : ""}>Terms</a>
             </li>
             <li>
-              <button className={`button1 ${location.pathname === "/get-start" ? "active" : ""}`} style={{ color: "black" }}>Get Started</button>
+              <a href="/services" className={location.pathname === "/price" ? "active" : ""}>Pricing</a>
             </li>
+            
+
+            <ul className="ul2">
+              <li>
+                <a href="/login" className={location.pathname === "/login" ? "active" : ""}>LogIn</a>
+              </li>
+              <li>
+                <a href="/signup" className={location.pathname === "/Signup" ? "active" : ""}>SignUp</a>
+              </li>
+              <li>
+                <button className="button1" href="/services">Get Started</button>
+              </li>
+
+            </ul>
+
           </ul>
+
         </div>
+            {/* <li>
+              <button className={`button1 ${location.pathname === "/get-start" ? "active" : ""}`} style={{ color: "black" }}>Get Started</button>
+            </li> */}
+          
       </div>
     </>
   );
