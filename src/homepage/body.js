@@ -4,11 +4,13 @@ import Footer from "./footer";
 import "./Header.css";
 import "./body.css";
 import { Send, RefreshCw, ShieldCheck } from "lucide-react";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import ImageTextSlider from "./picslide";
+import FAQ from "./faqpage";
 
 
-import aiImage from "../homepage/Screenshot 2025-04-08 163452.png";
-import seamlessdata from "../homepage/seamlessdatashare1.png";
+
+// import homepage from "../homepage/Screenshot 2025-04-08 163452.png";
+// import servicespage from "../homepage/Screenshot 2025-04-08 185626.png";
 import airestore from "../homepage/ai restore.png";
 import securestore from "../homepage/securestorage.png";
 
@@ -75,38 +77,12 @@ const Body = () => {
 </div>
 <h1 className="heading">How to Use CommitNexus</h1>
 
-
-<div className="how-to-use-section">
-
-  <div className="step">
-      <h2>Step 1: Visit the Website</h2>
-      <p>Go to <strong>commitenexus.xyz</strong> on your device. No sign-up needed for instant transfers!</p>
-      {/* Replace src with your image or embed video */}
-     <center> <img src={aiImage} alt="Step 1 Screenshot" className="step-image" /></center>
-      {/* Or for video: */}
-      {/* <video src="/path-to-video.mp4" controls className="step-video" /> */}
-  </div>
-
-  <div className="step">
-    <div className="step-text">
-      <h2>Step 1: Visit the Website</h2>
-      <p>Go to <strong>commitenexus.xyz</strong> on your device. No sign-up needed for instant transfers!</p>
+<div className="min-h-screen bg-white">
+      <ImageTextSlider />
     </div>
-    <div className="step-media">
-      {/* Replace src with your image or embed video */}
-      <img src={aiImage} alt="Step 1 Screenshot" className="step-image" />
-      {/* Or for video: */}
-      {/* <video src="/path-to-video.mp4" controls className="step-video" /> */}
+    <div>
+      <FAQ />
     </div>
-  </div>
-
- 
-
-  {/* Repeat step block for Step 2, Step 3, etc. */}
-</div>
-
-
-
 
       </div>
       <Footer />

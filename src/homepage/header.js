@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./Header.css";
+import { nav } from "framer-motion/client";
+import { useNavigate } from "react-router-dom";
 
 const Head = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const clickhange = (path) => {
+    navigate(path)
+  }
   return (
     <>
       <div className="navv">
       <div className="brand">
-          <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" />
-          <b>Commitnexus</b>
+          <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" onClick={()=>clickhange("/")}/>
+          <b onClick={()=>clickhange("/")}>Commitnexus</b>
         </div>
 
         {/* Hamburger menu button for mobile */}

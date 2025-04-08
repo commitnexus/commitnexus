@@ -194,14 +194,23 @@ h1{
     justify-content: center;
     gap: 30px;
     margin-bottom: 60px;
-    border: 1px solid blue;
+    border-radius: 20px;
     min-width: 60vw;
+    padding: 10px;
 
   }
   
   .step-text {
     flex: 1;
     min-width: 300px;
+    padding-bottom: 20px;
+  }
+
+  .step-media{
+    border: 1px solid rgb(173, 173, 255);
+    margin: 10px;
+    border-radius: 20px;
+    padding: 10px;
   }
   
   
