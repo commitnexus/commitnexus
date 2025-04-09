@@ -4,6 +4,11 @@ import "./DataSharing.css";
 import Head from "../homepage/header";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
+import { useEffect } from "react";
+
+
+
+import UploadIcon from "../homepage/images/upload logo.png" ;
 
 
 const DataSharing = () => {
@@ -23,7 +28,6 @@ const DataSharing = () => {
     // Hide the message after 2 seconds
     setTimeout(() => setCopied(false), 2000);
   };
-
 
   const handleShare = async () => {
     setError("");
@@ -55,8 +59,6 @@ const DataSharing = () => {
       setError("Failed to share the QR Code.");
     }
   };
-
-
 
   // File type icons
   const fileIcons = {
@@ -174,9 +176,6 @@ const DataSharing = () => {
     );
   };
   
-  
-  
-
   // Handle file upload when Submit button is clicked
   async function handleFolderUpload() {
     const files = selectedFiles;
@@ -217,45 +216,109 @@ const DataSharing = () => {
   const handleClick = (path) => {
     navigate(path);
   };
+
+
+  const [folderMode, setFolderMode] = useState(false);
+
+  const handleFileChange2 = (e) => {
+    const files = e.target.files;
+    console.log("Selected:", files);
+  };
+
+  const toggleMode = () => {
+    setFolderMode((prev) => !prev);
+  };
+  
+  useEffect(() => {
+    const sharingContent = document.getElementById("sharingcontent");
+    if (sharingContent) {
+      sharingContent.style.display =
+        Object.keys(folderStructure).length > 0 ? "none" : "block";
+    }
+  }, [folderStructure]);
   
 
   return (
-    <div>
-      <button className="button5" onClick={()=>handleClick("/services")}> &lt; back</button>
-      <Head />
-      
-      <div className="data-sharing-container">
+    <>
+    <div className="divmain">
 
       <motion.h1 
-        className="auto-sync-title"
+        className="datashare-title"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        Data Sharing
-      </motion.h1>        <h4 style={{ 
-         fontWeight: "bold", 
-         textAlign: "center", 
-         marginTop: "10px" 
-          }}>
-            ⚠️ Note: For security and privacy reasons, all transferred data will be stored in our database for only 2 hours. 
-            After this period, the data will be automatically deleted, and any provided links will no longer be accessible.
-        </h4>
+       <> Data Sharing</>
+      </motion.h1>    
+      
+      <Head />
+      <div className="inputfield">
+      <label htmlFor="fileupload" className="imagelayout">
+        <img
+          src={UploadIcon}
+          alt="Upload"
+          className="image"
+          style={{ cursor: "pointer" }}
+        />
+      </label>
+      <h2 className="upload-title">
+        {folderMode ? "Upload a Folder" : "Upload Files"}
+      </h2>
+      <p className="upload-subtext">
+        {folderMode
+          ? "Select an entire folder to upload"
+          : "Supported formats: PDF, JPG, PNG, DOCX"}
+      </p>
 
-          <p style={{padding:"20px 0px 0px 0px"}}>Share your individual files and folders securely.</p>
+      <input
+        type="file"
+        id="fileupload"
+        multiple
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        {...(folderMode ? { webkitdirectory: "true", directory: "" } : {})}
+      />
 
-          <div  style={{ display: "flex", justifyContent: "center", gap: "20px", padding:"20px"}}>
-  
+      <button onClick={toggleMode} className="toggle-button">
+        {folderMode ? "Switch to File Upload" : "Switch to Folder Upload"}
+      </button>
+    </div>
+
+    <div id="sharingcontent" className="sharing-content">
+  <h3>
+    🔒 <strong>Note:</strong> For security and privacy reasons, all shared data is stored temporarily for <strong>2 hours</strong>. After this period, it is automatically deleted from our servers and all associated links will expire.
+  </h3>
+
+  <div className="more-info">
+    <h4>📁 Data Sharing with CommitNexus</h4>
+    <p>
+      CommitNexus offers a fast, secure, and user-friendly way to share files and folders across devices. Whether you're transferring documents, images, or entire directories, our system ensures your data is handled with care.
+    </p>
+    <ul>
+      <li><strong>Unique Share Codes:</strong> Generate a simple 4-digit code for quick and direct access to your shared data.</li>
+      <li><strong>QR Code Integration:</strong> Each upload includes a QR code for effortless sharing with mobile devices.</li>
+      <li><strong>Temporary & Secure:</strong> Files are encrypted and automatically removed after 2 hours to protect your privacy.</li>
+      <li><strong>Cross-Device Compatibility:</strong> Access shared data from any browser on desktop, tablet, or mobile.</li>
+    </ul>
+  </div>
+</div>
+
+      <div className="data-sharing-container">
+         
+
+
+          {/* <div  style={{ display: "flex", justifyContent: "center", gap: "20px", padding:"20px"}}>
+   */}
   {/* File Upload */}
-  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+  {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
     <label htmlFor="file-upload" style={{ cursor: "pointer", padding: "10px 15px", background: "#007bff", color: "white", borderRadius: "5px" }}>
       📂 Choose Files
     </label>
     <input type="file" id="file-upload" multiple onChange={handleFileChange} style={{ display: "none" }} />
-  </div>
+  </div> */}
 
   {/* Folder Upload */}
-  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+  {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
     <label htmlFor="folder-upload" style={{ cursor: "pointer", padding: "10px 15px", background: "#007bff",  color: "white", borderRadius: "5px" }}>
       📁 Choose Folder
     </label>
@@ -271,24 +334,32 @@ const DataSharing = () => {
 
   </div>
 
-</div>
+</div> */}
 
 
 
 
         {/* Display folder structure */}
         {Object.keys(folderStructure).length > 0 && (
-          <div>
-            <h3 style={{ padding:"10px"}}>Selected Folder Structure:</h3>
-            <div className="ul-style" style={{ width: "100%" }}>{renderFolderTree(folderStructure)}</div>
-          </div>
-        )}
+  <div className="folder-structure">
+    <h3 style={{ padding: "10px" }}>Selected Folder Structure:</h3>
+    <div className="ul-style" style={{ width: "100%" }}>
+      {renderFolderTree(folderStructure)}
+    </div>
+  </div>
+)}
+
 
           <button onClick={handleFolderUpload} disabled={selectedFiles.length === 0} className="submit-btn">
             Share Files
           </button>
 
-          {uploadStatus && (
+         
+   </div>
+
+   
+    </div>
+    {uploadStatus && (
           <>
             <p>{uploadStatus}</p>
               <br /> {/* Correct self-closing <br> */}
@@ -419,8 +490,7 @@ const DataSharing = () => {
 
   </>
 )}
-   </div>
-    </div>
+    </>
   );
 };
 
