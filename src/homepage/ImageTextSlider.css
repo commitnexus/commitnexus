@@ -1,5 +1,5 @@
 .slider-container2 {
-    width: 900px;
+    width: 60vw;
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 6px 6px 26px 13px rgba(23, 67, 243, 0.2);
@@ -16,11 +16,11 @@
   }
   
   .slide {
-    width: 860px;
+    width: 58vw;
     flex-shrink: 0;
     text-align: start;
     /* margin-bottom: 20px; */
-    margin: 0 20px 20px 20px;
+    margin: 0 1vw 1vw 1vw;
   }
   
   .slide h2 {
@@ -43,3 +43,21 @@
 
   }
   
+  @media (max-width: 1024px) {
+    .slider-container2 {
+      width: 80vw;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 6px 6px 26px 13px rgba(23, 67, 243, 0.2);
+      margin: 10px 90px;
+      padding: 0 0px;
+      border: 1px solid blue;
+    }
+    .slide {
+      width: 78vw;
+      flex-shrink: 0;
+      text-align: start;
+      /* margin-bottom: 20px; */
+      margin: 0 1vw 1vw 1vw;
+    }
+  }

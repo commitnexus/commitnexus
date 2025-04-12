@@ -185,34 +185,6 @@ export default function FeaturesPage() {
         </div>
       </div>
 
-      {/* ❓ FAQ Section */}
-      <div className="faq-section fade-in">
-        <h2>Frequently Asked Questions</h2>
-        <div className="faq-list">
-          <div className="faq-item">
-            <h4>Is my data secure?</h4>
-            <p>
-              Yes. All transfers and storage use end-to-end encryption and secure
-              protocols.
-            </p>
-          </div>
-          <div className="faq-item">
-            <h4>Do I need to register?</h4>
-            <p>
-              No. You can share files with just a 4-digit code or QR—no login
-              required.
-            </p>
-          </div>
-          <div className="faq-item">
-            <h4>What’s the max file size?</h4>
-            <p>
-              Currently, files up to 2GB can be uploaded. We’re working on
-              increasing this limit.
-            </p>
-          </div>
-        </div>
-      </div>
-
       <Footer />
     </>
   );

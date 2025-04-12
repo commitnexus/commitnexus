@@ -11,8 +11,8 @@ import FAQ from "./faqpage";
 
 // import homepage from "../homepage/Screenshot 2025-04-08 163452.png";
 // import servicespage from "../homepage/Screenshot 2025-04-08 185626.png";
-import airestore from "../homepage/ai restore.png";
-import securestore from "../homepage/securestorage.png";
+// import airestore from "../homepage/ai restore.png";
+// import securestore from "../homepage/securestorage.png";
 
 
 const Body = () => {
@@ -77,7 +77,7 @@ const Body = () => {
 </div>
 <h1 className="heading">How to Use CommitNexus</h1>
 
-<div className="min-h-screen bg-white">
+<div className="min-h-screen bg-white" >
       <ImageTextSlider />
     </div>
     <div>

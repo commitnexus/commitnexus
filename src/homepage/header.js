@@ -14,6 +14,7 @@ const Head = () => {
   }
   return (
     <>
+     
       <div className="navv">
       <div className="brand">
           <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" onClick={()=>clickhange("/")}/>
@@ -26,7 +27,8 @@ const Head = () => {
         </div>
 
         <div className={`navitems ${menuOpen ? "open" : ""}`}>
-          <ul>
+          <div></div>
+          <ul >
          <li>
          
         </li>
@@ -44,7 +46,10 @@ const Head = () => {
             </li>
             
 
-            <ul className="ul2">
+           
+
+          </ul>
+          <ul className="ul2">
               <li>
                 <a href="/login" className={location.pathname === "/login" ? "active" : ""}>LogIn</a>
               </li>
@@ -56,8 +61,6 @@ const Head = () => {
               </li>
 
             </ul>
-
-          </ul>
 
         </div>
             {/* <li>

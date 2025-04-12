@@ -1,20 +1,22 @@
 .brand {
   /* justify-content: center; */
   color: aliceblue;
-  font-size: 25px;
-  margin-top: 0px;
+  font-size: 2rem;
+  margin-top: 7px;
   z-index: 1001;
   cursor:pointer;
+  position: fixed;
+  justify-content: flex-start;
+  margin-left: 5%;
+
 }
 .navv {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  display: grid;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  text-align: start;
   width: 95%;
   padding: 0.5rem 1rem;
   background-color: rgb(0, 2, 12);
@@ -24,23 +26,27 @@
 
 img {
   position: relative;
-  top: 7px;
-  width: 28px;
-  padding-right: 3px;
+  top: 5px;
+  width: 27px;
+}
+
+
+.navitems{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .navitems ul {
   display: flex;
-  justify-content:space-between;
+  justify-content:flex-start;
   list-style: none;
   padding: 0;
   align-items: center;
 }
-.navitems ul .ul2 {
+.navitems .ul2 {
   display: flex;
   justify-content:flex-end ;
   list-style: none;
-  margin-left: 500px;
 }
 
 .navitems ul li {
@@ -50,7 +56,7 @@ img {
 .navitems ul li a {
   position: relative;
   text-decoration: none;
-  color: rgb(109, 110, 110);
+  color: rgb(187, 187, 187);
   padding-bottom: 5px;
 }
 
@@ -114,7 +120,57 @@ img {
   right: 20px;
   z-index: 1002;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 925px) {
+  .hamburger {
+    display: block;
+    margin-top: -11px;
+  }
+
+  .navitems {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 2, 12, 0.95); /* Dark background with slight transparency */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    padding: 10px 0;
+  }
+
+  .navitems.open {
+    display: flex;
+  }
+
+  .navitems ul {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navitems ul li {
+    padding: 15px 0;
+  }
+
+  .navitems ul li a {
+    color: white; /* Ensure text is visible */
+    font-size: 18px;
+  }
+  .navv {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color:  rgb(0, 2, 12); /* Optional: Improve navbar visibility */
+    z-index: 1000;
+    height: 12%;
+    justify-content: start;
+  }
+  
+}
+
+@media (min-width: 669px) and (max-width: 720px) {
   .hamburger {
     display: block;
   }
@@ -158,6 +214,6 @@ img {
     background-color:  rgb(0, 2, 12); /* Optional: Improve navbar visibility */
     z-index: 1000;
     height: 12%;
+    justify-content: start;
   }
-  
 }

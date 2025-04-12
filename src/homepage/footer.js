@@ -4,15 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-
 const Footer = () => {
   return (
     <footer style={footerStyle}>
-      <div style={containerStyle}>
-        <div style={leftStyle}>
-          <p>&copy; 2025 Commitnexus. All rights reserved.</p>
-        </div>
-        <div style={rightStyle}>
-          <a href="/terms" style={linkStyle}>Terms of Service</a>
-          <a href="/privacy" style={linkStyle}>Privacy Policy</a>
-        </div>
-      </div>
+      
 
       <div style={moreInfoContainer}>
         <div style={moreInfoColumn}>
@@ -69,6 +61,17 @@ const Footer = () => {
           </form>
         </div>
       </div>
+
+      <div style={containerStyle}>
+        <div style={leftStyle}>
+          <p>&copy; 2025 Commitnexus. All rights reserved.</p>
+        </div>
+        <div style={rightStyle}>
+          <a href="/terms" style={linkStyle}>Terms of Service</a>
+          <a href="/privacy" style={linkStyle}>Privacy Policy</a>
+        </div>
+      </div>
+
     </footer>
   );
 };
@@ -86,7 +89,7 @@ const containerStyle = {
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '80%',
-  margin: '0 auto',
+  margin: '25px auto',
 };
 
 const leftStyle = {
@@ -109,7 +112,7 @@ const moreInfoContainer = {
   justifyContent: 'space-between',
   marginTop: '30px',
   width: '80%',
-  margin: '0 auto',
+  margin: '25px auto',
 };
 
 const moreInfoColumn = {
@@ -127,6 +130,7 @@ const headingStyle = {
 const infoListStyle = {
   listStyleType: 'none',
   paddingLeft: '0',
+  paddingTop:'10px'
 };
 
 const socialMediaLinks = {

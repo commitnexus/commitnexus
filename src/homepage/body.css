@@ -49,12 +49,7 @@
     padding-bottom: 10px;
   }
 
-  
-  .animi{
-    position: fixed;
-    
-  }
-  
+
   /* Right Side (Image) */
  
 
@@ -108,6 +103,8 @@ h1{
   font-size: large;
   line-height: 30px;
 }
+
+
   /* Responsive Design */
   
   /* ✅ Medium Screens (Tablets & Small Laptops) */
@@ -118,19 +115,26 @@ h1{
     }
 
     .deepak{
-        padding: 13%;
+        padding: 5%;
     }
   
     .div3, .div4 {
       max-width: 100%; /* Full width */
     }
+    .button{
+      width: 40%;
+    }
   }
+
   
   /* ✅ Small Screens (Phones) */
   @media (max-width: 768px) {
     .div {
       flex-direction: column;
       text-align: center;
+    }
+    .button{
+      width: 50%;
     }
   }
   

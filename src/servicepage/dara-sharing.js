@@ -5,6 +5,8 @@ import Head from "../homepage/header";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 import { useEffect } from "react";
+import { FaEdit } from "react-icons/fa";
+
 
 
 
@@ -19,6 +21,8 @@ const DataSharing = () => {
   const [uploadResponse, setUploadResponse] = useState(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
 
 
   const handleCopy = () => {
@@ -238,6 +242,12 @@ const DataSharing = () => {
   }, [folderStructure]);
   
 
+  const handleEditClick = () => {
+    console.log("Edit icon clicked!");
+    // Open modal or enable editing functionality
+  };
+  
+
   return (
     <>
     <div className="divmain">
@@ -342,12 +352,71 @@ const DataSharing = () => {
         {/* Display folder structure */}
         {Object.keys(folderStructure).length > 0 && (
   <div className="folder-structure">
-    <h3 style={{ padding: "10px" }}>Selected Folder Structure:</h3>
+    <h3 style={{ padding: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+      Selected Folder Structure:
+      <FaEdit style={{ cursor: "pointer" }} onClick={() => setShowModal(true)}/>
+      {/* <button onClick={() => setShowModal(true)} style={{ margin: "10px" }}>
+  View Folder Structure in Fullscreen
+</button> */}
+
+    </h3>
     <div className="ul-style" style={{ width: "100%" }}>
       {renderFolderTree(folderStructure)}
     </div>
   </div>
 )}
+
+
+
+{showModal && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.6)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999
+  }}>
+    <div style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "8px",
+      minHeight: "90vh",
+      width: "90vw",
+      overflowY: "auto",
+      position: "relative",
+      backgroundColor:"rgb(33, 31, 47)"
+    }}>
+      <button
+        onClick={() => setShowModal(false)}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "red",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          padding: "5px 10px",
+          cursor: "pointer"
+        }}
+      >
+        Close
+      </button>
+
+      <h2 style={{ marginBottom: "10px" }}>Folder Structure</h2>
+      <div className="ul-style" style={{ width: "100%" }}>
+        {renderFolderTree(folderStructure)}
+      </div>
+    </div>
+  </div>
+)}
+
+
 
 
           <button onClick={handleFolderUpload} disabled={selectedFiles.length === 0} className="submit-btn">
@@ -433,7 +502,7 @@ const DataSharing = () => {
   </>
 )}
 
-      
+
         {/* Share Button */}
         {/* Share Button */}
         <button
