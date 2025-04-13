@@ -21,10 +21,10 @@ const features = [
     path: "/data-sharing",
   },
   {
-    title: "AI File Restoring",
-    icon: <FaMagic />,
-    description: "Automatically restore and organize your files.",
-    path: "/ai-file-restoring",
+    title: "Easy File Access",
+    icon: <FaFolderOpen />,
+    description: "Access your files anytime, anywhere.",
+    path: "/file-access",
   },
   {
     title: "Secure Cloud Storage",
@@ -38,18 +38,7 @@ const features = [
     description: "Your data remains private and secure.",
     path: "/end-to-end-encryption",
   },
-  {
-    title: "Auto File Syncing",
-    icon: <FaSync />,
-    description: "Sync files across multiple devices effortlessly.",
-    path: "/auto-file-syncing",
-  },
-  {
-    title: "Easy File Access",
-    icon: <FaFolderOpen />,
-    description: "Access your files anytime, anywhere.",
-    path: "/file-access",
-  },
+  
 ];
 
 // 👇 Animated Counter Component
