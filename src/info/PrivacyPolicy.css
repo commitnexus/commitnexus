@@ -1,25 +1,23 @@
 .privacy-policy {
     max-width: 800px;
     margin: 0px auto;
-    padding: 20px;
+    padding: 5rem 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #858181;
     line-height: 1.8;
   }
   .privacy-policy h1 {
-    font-size: 2.5rem;
     text-align: center;
     margin-bottom: 30px;
     color: #ffffff;
   }
   
   .privacy-policy h2 {
-    font-size: 1.5rem;
     margin-top: 30px;
     color: #ffffff;
   }
   
-  .privacy-policy ul {
+  .privacy-policy .info-list {
     margin-left: 20px;
     list-style-type: disc;
   }
@@ -27,9 +25,5 @@
   .privacy-policy a {
     color: #2563eb;
     text-decoration: none;
-  }
-  
-  .privacy-policy a:hover {
-    text-decoration: underline;
   }
   

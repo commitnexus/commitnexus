@@ -16,6 +16,10 @@ import Endtoend from "./servicepage/end-to-endencryption.js";
 import AutoSyncFiles from "./servicepage/autofilesyncing.js";
 import Test from "./servicepage/folderuploadtest.js";
 import PrivacyPolicy from "./info/privacypolicy.js";
+import Blogs from "./info/blogs.js";
+import TermsAndConditions from "./info/termsandconditions.js";
+import FAQ from "./info/faq.js";
+
 
 function App() {
   return (
@@ -36,6 +40,11 @@ function App() {
           <Route path="/auto-file-syncing" element={<AutoSyncFiles/>}/>
           <Route path="/test" element={<Test/>}/>
           <Route path="/privacy" element={<PrivacyPolicy/>}/>
+          <Route path="/blogs" element={<Blogs />}/>
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/faq" element={<FAQ />} />
+
+
 
         </Routes>
       </div>

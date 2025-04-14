@@ -34,7 +34,7 @@ const Body = () => {
       Share files instantly across all your devices without any hassle or cables.
       <br className="hidden md:block" /> Enjoy seamless transfers, ensuring speed and security
     </p>
-    <button className="button" onClick={() => clickHandle("/services")}>
+    <button className="button" onClick={() => clickHandle("/data-sharing")}>
       Get Started &gt;
     </button>
   </div>

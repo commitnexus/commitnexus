@@ -19,6 +19,9 @@ const DataSharing = () => {
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [folderMode, setFolderMode] = useState(false);
   const [finalfile, setFinalFile] = useState(null);
+  const [showdatashare, setShowDataShare] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -87,7 +90,6 @@ const DataSharing = () => {
     setSelectedFiles(updatedFiles); // 👈 most important
   };
   
-
   const viewFile = (path) => {
     const file = selectedFiles.find(f => f.webkitRelativePath === path);
     if (file) {
@@ -119,19 +121,19 @@ const DataSharing = () => {
               {isFolder ? (
                 <div
                   onClick={() => toggleFolder(fullPath)}
-                  style={{ cursor: "pointer", fontWeight: "bold", display: "flex", justifyContent: "space-between" }}
+                  style={{ cursor: "pointer", fontWeight: "bold", display: "flex", justifyContent: "space-between" }} className="folder-item"
                 >
                   <div>
                     {isExpanded ? "▼" : "▶"} 📁 {key}
                   </div>
-                  <button onClick={(e) => { e.stopPropagation(); removeItem(fullPath); }}>🗑️ Remove</button>
+                  <button onClick={(e) => { e.stopPropagation(); removeItem(fullPath); }} className="editoptions">Remove</button>
                 </div>
               ) : (
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }} className="file-item">
                   <span>{getFileIcon(value.name)} {value.name}</span>
                   <div>
-                    <button onClick={() => viewFile(fullPath)}>👁️ View</button>
-                    <button onClick={() => removeItem(fullPath)}>🗑️ Remove</button>
+                    <button onClick={() => viewFile(fullPath)} className="editoptions"> View</button>
+                    <button onClick={() => removeItem(fullPath)} className="editoptions">Remove</button>
                   </div>
                 </div>
               )}
@@ -177,7 +179,7 @@ const DataSharing = () => {
                 </div>
               ) : (
                 <div style={{ paddingLeft: "1.5rem" }}>
-                  📄 {key}
+                  📄 {key}{value.name}
                 </div>
               )}
   
@@ -191,8 +193,6 @@ const DataSharing = () => {
         })}
     </ul>
   );
-  
-
   const handleFolderUpload = async () => {
     const remainingFiles = getRemainingFiles(folderStructure);
   
@@ -208,6 +208,8 @@ const DataSharing = () => {
   
     formData.append("filePaths", JSON.stringify(paths));
   
+    setIsLoading(true); // Show loading
+  
     try {
       const res = await axios.post("https://commitnexusdatabase.onrender.com/api/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -216,8 +218,10 @@ const DataSharing = () => {
       setUploadStatus("✅ Upload successful!");
     } catch (err) {
       alert("❌ Upload failed");
+    } finally {
+      setIsLoading(false); // Hide loading
     }
-  };
+  };  
 
   const getRemainingFiles = (tree, path = "") => {
     let files = [];
@@ -299,16 +303,30 @@ const DataSharing = () => {
 
       <div id="sharingcontent" className="sharing-content">
         <h3>🔒 Your data is temporary (auto-deleted after 2 hours)</h3>
+        
       </div>
-
-      {Object.keys(folderStructure).length > 0 && (
-        <div className="folder-structure">
-          <h3>📂 Selected Folder Structure <FaEdit onClick={() => setShowModal(true)} style={{ cursor: "pointer" }} /></h3>
-          {renderFolderTree2(folderStructure)}
-        </div>
-      )}
-
       
+      {Object.keys(folderStructure).length > 0 && (
+  <>
+    <div className="folder-structure">
+      <h3 >
+        📂 Selected Folder Structure{" "}
+        <FaEdit onClick={() => setShowModal(true)} style={{ cursor: "pointer" }} />
+          
+      </h3>
+      {selectedFiles.length > 0 && (
+      <div>
+        <button onClick={handleFolderUpload} className="sharebtn" disabled={isLoading}>
+  {isLoading ? "Uploading..." : "Share Files"}
+</button>
+
+      </div>
+    )}
+      {renderFolderTree2(folderStructure)}
+ </div>
+  </>
+)}
+  
 {showModal && (
   <div style={{
     position: "fixed",
@@ -316,7 +334,7 @@ const DataSharing = () => {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "rgba(0,0,0,0.9)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -356,9 +374,113 @@ const DataSharing = () => {
 
       </div>
     </div>
+
+
   </div>
 )}
 
+{uploadResponse && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.9)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999
+  }}>
+    <div className="share-modal" style={{
+      background: "#1e1e2f",
+      padding: "24px",
+      borderRadius: "16px",
+      display: "flex",
+      gap: "30px",
+      color: "white",
+      maxWidth: "90vw",
+      minHeight: "47vh",
+      position: "relative"
+    }}>
+      {/* Close Button */}
+      <button
+        onClick={() => setUploadResponse(null)}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "red",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          padding: "6px 12px",
+          cursor: "pointer"
+        }}
+      >
+        ✖
+      </button>
+
+      {/* Left - QR Code */}
+      <div>
+        <img src={uploadResponse.qrCode} alt="QR" style={{ borderRadius: "8px", minWidth: "300px" }} />
+      </div>
+
+      {/* Right - Details and Actions */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "16px" }}>
+        <h1>Sharing Details</h1>
+        <p style={{ margin: 0, fontSize: "18px" }}>
+          <strong>File Code:</strong> {uploadResponse.folderCode}
+        </p>
+
+        <p style={{ margin: 0, fontSize: "16px", wordBreak: "break-all" }}>
+          🌍 <a
+            href={uploadResponse.folderUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: "#29f0cc", textDecoration: "none" }}
+          >
+            {uploadResponse.folderUrl}
+          </a>
+        </p>
+
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <button
+            onClick={handleCopy}
+            style={{
+              backgroundColor: "#29f0cc",
+              color: "#000",
+              border: "none",
+              padding: "10px 16px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            📋 Copy URL
+          </button>
+
+          <button
+            onClick={handleShare}
+            style={{
+              backgroundColor: "#6c63ff",
+              color: "#fff",
+              border: "none",
+              padding: "10px 16px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            🔗 Share
+          </button>
+        </div>
+
+        {copied && <span style={{ color: "#29f0cc", fontSize: "14px" }}>✅ Copied!</span>}
+      </div>
+    </div>
+  </div>
+)}
       {selectedFileContent && (
         <div className="file-preview">
           <h3>📄 File Content:</h3>
@@ -366,21 +488,9 @@ const DataSharing = () => {
         </div>
       )}
 
-      <button onClick={handleFolderUpload} disabled={!selectedFiles.length} className="submit-btn">Share Files</button>
-
-      {uploadStatus && <p>{uploadStatus}</p>}
-
-      {uploadResponse && (
-        <div className="upload-details">
-          <img src={uploadResponse.qrCode} alt="QR" width={150} />
-          <p>📂 Code: {uploadResponse.folderCode}</p>
-          <p>🌍 <a href={uploadResponse.folderUrl} target="_blank" rel="noreferrer">{uploadResponse.folderUrl}</a></p>
-          <button onClick={handleCopy}>📋 Copy URL</button>
-          {copied && <span>✅ Copied!</span>}
-          <button onClick={handleShare}>🔗 Share</button>
-        </div>
-      )}
+      
     </div>
+   
   );
 };
 

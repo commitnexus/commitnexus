@@ -36,13 +36,13 @@ const Head = () => {
               <a href="/services" className={location.pathname === "/services" ? "active" : ""}>Services</a>
             </li>
             <li>
-              <a href="/services" className={location.pathname === "/blog" ? "active" : ""}>Blog</a>
+              <a href="/blogs" className={location.pathname === "/blogs" ? "active" : ""}>Blog</a>
             </li>
             <li>
-              <a href="/services" className={location.pathname === "/terms" ? "active" : ""}>Terms</a>
+              <a href="/terms" className={location.pathname === "/terms" ? "active" : ""}>Terms</a>
             </li>
             <li>
-              <a href="/services" className={location.pathname === "/price" ? "active" : ""}>Pricing</a>
+              <a href="/privacy" className={location.pathname === "/privacy" ? "active" : ""}>Privacy policy</a>
             </li>
             
 
@@ -57,7 +57,7 @@ const Head = () => {
                 <a href="/signup" className={location.pathname === "/Signup" ? "active" : ""}>SignUp</a>
               </li>
               <li>
-                <button className="button1" href="/services">Get Started</button>
+                <button className="button1" onClick={()=>clickhange("/services")}>Get Started</button>
               </li>
 
             </ul>

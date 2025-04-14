@@ -4,6 +4,10 @@ import Head from "../homepage/header";
 import "./SlidingFields.css";
 import QrScanner from "qr-scanner";
 import { useNavigate } from "react-router-dom";
+import { FaFolder, FaFileAlt, FaFileImage, FaFilePdf, FaFileCode } from "react-icons/fa";
+import { FaEdit, FaEye, FaTrash, FaDownload } from "react-icons/fa";
+
+
 
 export default function SlidingFields() {
   const [step, setStep] = useState(0);
@@ -16,6 +20,8 @@ export default function SlidingFields() {
   const [fileContent, setFileContent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fileType, setFileType] = useState(null);
+  const [editingFolder, setEditingFolder] = useState(null);
+
 
   const openField = (index) => setStep(index);
   const navigate = useNavigate();
@@ -38,6 +44,14 @@ export default function SlidingFields() {
       setError(err.message);
     }
   };
+
+  function getFileIcon(name) {
+    const ext = name.split(".").pop().toLowerCase();
+    if (["jpg", "jpeg", "png", "gif", "bmp"].includes(ext)) return <FaFileImage />;
+    if (["pdf"].includes(ext)) return <FaFilePdf />;
+    if (["json", "js", "ts", "txt", "html", "css"].includes(ext)) return <FaFileCode />;
+    return <FaFileAlt />;
+  }
 
   const handleRetrieve2 = async () => {
     if (code.length !== 4) {
@@ -170,19 +184,32 @@ export default function SlidingFields() {
   function renderFolderTree(tree, parentPath = "") {
     return Object.entries(tree).map(([key, value]) => {
       if (key === "files") {
-        return value.map(file => (
-          <div key={file.name} className="file">
-            📄 <a href={file.url} target="_blank" rel="noreferrer">{file.name}</a>
+        return (
+          <div className="file-group" key={`files-${parentPath}`}>
+            {value.map(file => (
+              <div
+                key={file.name}
+                className="file-item"
+                title="Click to preview"
+              >
+                {getFileIcon(file.name)} <span className="file-name">{file.name}</span>
+              </div>
+            ))}
           </div>
-        ));
+        );
       }
-
+  
       const fullPath = parentPath ? `${parentPath}/${key}` : key;
-
+  
       return (
-        <div key={fullPath} className="folder">
-          📁 <strong>{key}</strong>
-          <div className="nested">
+        <div key={fullPath} className="folder-block">
+          <div className="folder-name">
+            <FaFolder /> <strong>{key}</strong>
+            <button className="edit-btn" onClick={() => setEditingFolder({ path: fullPath, content: value })}>
+              <FaEdit />
+            </button>
+          </div>
+          <div className="folder-contents">
             {renderFolderTree(value, fullPath)}
           </div>
         </div>
@@ -190,22 +217,39 @@ export default function SlidingFields() {
     });
   }
 
+  const handleRemoveFile = (fileName) => {
+    const updated = { ...editingFolder };
+    updated.content.files = updated.content.files.filter(f => f.name !== fileName);
+    setEditingFolder(updated);
+  };
+  
+  const handleRemoveFolder = (folderName) => {
+    const updated = { ...editingFolder };
+    delete updated.content[folderName];
+    setEditingFolder(updated);
+  };
+  
+  const handleDownloadFile = (url, filename) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  };
+
+  
   return (
     <div>
-      <button className="button3" onClick={() => handleClick("/services")}>
-        &lt; back
-      </button>
       <div className="container">
         <Head />
         <motion.h1
-          className="auto-sync-title"
+          className="file-access-header"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           Easy File Access
         </motion.h1>
-        <div className="divmain">
+        <div className="divmains">
           <div className="div1">
             <div className="button-group">
               <button className="nav-button" onClick={() => openField(0)}>URL</button>
@@ -235,6 +279,8 @@ export default function SlidingFields() {
           </div>
 
           <div className="div2">
+          <h3 className="section-title">📁 Folder Structure:</h3>
+
           <div className="response-container">
       {/* QR Code */}
       {qrData && (
@@ -248,7 +294,12 @@ export default function SlidingFields() {
       {error && <p className="error">{error}</p>}
 
       {/* Folder Structure */}
-      {data && data.files && renderFolderTree(buildFolderTree(data.files))}
+
+      {data?.files && (
+  <>
+    {renderFolderTree(buildFolderTree(data.files))}
+  </>
+)}
 
       {/* File Preview */}
       {fileContent && (
@@ -268,6 +319,37 @@ export default function SlidingFields() {
     </div>
           </div>
         </div>
+        {editingFolder && (
+  <div className="edit-card">
+    <h3>Editing: {editingFolder.path}</h3>
+    <button className="close-btn" onClick={() => setEditingFolder(null)}>❌ Close</button>
+
+    {/* Files */}
+    {editingFolder.content.files?.map(file => (
+      <div key={file.name} className="editable-file">
+        📄 {file.name}
+        <div className="actions">
+          <button onClick={() => window.open(file.url, "_blank")}><FaEye /> View</button>
+          <button onClick={() => handleRemoveFile(file.name)}><FaTrash /> Remove</button>
+          <button onClick={() => handleDownloadFile(file.url, file.name)}><FaDownload /> Download</button>
+        </div>
+      </div>
+    ))}
+
+    {/* Subfolders */}
+    {Object.keys(editingFolder.content)
+      .filter(k => k !== "files")
+      .map(folderName => (
+        <div key={folderName} className="editable-folder">
+          📁 {folderName}
+          <div className="actions">
+            <button onClick={() => handleRemoveFolder(folderName)}><FaTrash /> Remove</button>
+          </div>
+        </div>
+      ))}
+  </div>
+)}
+
       </div>
     </div>
   );
