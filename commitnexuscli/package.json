@@ -1,0 +1,14 @@
+{
+  "name": "commitnexus",      
+  "version": "1.0.0",
+  "description": "CLI to upload folders to CommitNexus cloud",
+  "bin": {
+    "nexus": "./index.js" 
+  },
+  "author": "SILAPARASETTI DEEPAK SURYA MANI LAKSHMAN",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.0.0",
+    "form-data": "^4.0.0"
+  }
+}
