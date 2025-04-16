@@ -44,8 +44,6 @@ function App() {
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/faq" element={<FAQ />} />
 
-
-
         </Routes>
       </div>
     </Router>

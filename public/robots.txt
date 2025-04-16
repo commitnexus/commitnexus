@@ -1,3 +1,23 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for CommitNexus Website
+
+# Allow all web crawlers access to the entire site
 User-agent: *
-Disallow:
+Disallow: 
+
+# Sitemap location
+Sitemap: https://commitenexus.xyz/sitemap.xml
+
+# Prevent crawling of sensitive or admin sections (example)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+
+# Specific rules for Googlebot (Google's web crawler)
+User-agent: Googlebot
+Disallow: /private/
+Allow: /public/
+
+# Specific rules for Bingbot (Bing's web crawler)
+User-agent: Bingbot
+Disallow: /private/
+Allow: /public/
