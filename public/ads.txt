@@ -1,2 +1,1 @@
-# ads.txt for commitnexus.onrender.com
 google.com, pub-1702951250510083, DIRECT, f08c47fec0942fa0
