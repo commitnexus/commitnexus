@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
         <h1>Privacy Policy</h1>
         <p><strong>Effective Date:</strong> April 14, 2025</p>
         <p>
-          Welcome to <strong>CommitNexus</strong> (<a href="https://commitnexus.onrender.com" target="_blank" rel="noopener noreferrer">https://commitnexus.onrender.com</a>). We respect your privacy and are committed to protecting it through this policy.
+          Welcome to <strong>CommitNexus</strong> (<a href="https://commitenexus.xyz" target="_blank" rel="noopener noreferrer">https://commitnexus.onrender.com</a>). We respect your privacy and are committed to protecting it through this policy.
         </p>
 
         <h2>1. Information We Collect</h2>
