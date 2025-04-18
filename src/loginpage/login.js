@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
@@ -6,9 +7,40 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password, "Remember Me:", rememberMe);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      console.log("Login successful:", data);
+      // Store email in localStorage after login
+      localStorage.setItem("userEmail", email);
+
+      // Store login status in localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      // Force Header component to re-render
+      window.dispatchEvent(new Event("storage")); 
+      // Redirect to services page
+      navigate("/services");
+    } catch (error) {
+      console.error("Login error:", error.message);
+      alert("Login failed: " + error.message);
+    }
   };
 
   return (

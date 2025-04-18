@@ -8,15 +8,47 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Full Name:", fullName, "Email:", email, "Password:", password, "Agreed:", agree);
-    // Send data to backend API
+  
+    if (!agree) {
+      alert("You must agree to the terms and conditions.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:3000/api/signup", { // 🔁 Update to your backend URL
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: fullName,
+          email,
+          password,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Signup successful!");
+        // Optionally redirect to login or home page
+        window.location.href = "/login";
+      } else {
+        alert(data.message || "Signup failed.");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Something went wrong. Please try again later.");
+    }
   };
+  
 
   return (
     <div className="signup-container">
