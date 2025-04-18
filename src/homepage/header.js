@@ -17,7 +17,7 @@ const Head = () => {
      
       <div className="navv">
       <div className="brand">
-          <img src="/datahubara3.ico" alt="DataHubAra Logo" className="brand-logo" onClick={()=>clickhange("/")}/>
+          <img src="/commitnexus.png" alt="commitnexus Logo" className="brand-logo" onClick={()=>clickhange("/")}/>
           <b onClick={()=>clickhange("/")}>Commitnexus</b>
         </div>
 

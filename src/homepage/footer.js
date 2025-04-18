@@ -9,12 +9,11 @@ const Footer = () => {
         <div className="lg:w-1/3">
           <a href="#" className="footer-logo">
             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-800">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" className="w-5 h-5 text-white">
-                <path d="M18.266 26.068..." />
-              </svg>
+            <img src="/commitnexus.png" alt="commitnexus Logo" className='logo' /><br/>
             </div>
-            <span className="self-center text-2xl font-semibold">CommitNexus</span>
           </a>
+          <span className="self-center text-2xl font-semibold">CommitNexus</span>
+
         </div>
 
         <div className="footer-links lg:w-2/3">

@@ -2,14 +2,20 @@
   /* justify-content: center; */
   color: aliceblue;
   font-size: 2rem;
-  margin-top: 7px;
+  margin-top: 0px;
   z-index: 1001;
   cursor:pointer;
   position: fixed;
   justify-content: flex-start;
   margin-left: 5%;
-
 }
+
+.brand-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 10px;
+}
+
 .navv {
   position: fixed;
   top: 0;
