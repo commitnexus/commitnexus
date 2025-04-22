@@ -1,0 +1,17 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+const FeaturePage = ({ featureName, featureContent }) => (
+  <div className="feature-page">
+    <h2>{featureName}</h2>
+    <p>{featureContent}</p>
+  </div>
+);
+
+export const FeatureDetails = () => {
+  const { name } = useParams();
+  const flatList = features.flatMap(cat => cat.items);
+  const feature = flatList.find(f => f.title === decodeURIComponent(name));
+  if (!feature) return <p>Feature not found</p>;
+  return <FeaturePage featureName={feature.title} featureContent={feature.content} />;
+};

@@ -1,0 +1,107 @@
+/* EndToEndEncryptionPage.css */
+
+.encryption-container {
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 10%;
+  }
+  
+  .encryption-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #547db6;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .encryption-description {
+    font-size: 1.1rem;
+    color: #475569;
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .encryption-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  }
+  
+  .encryption-textarea {
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.75rem;
+    resize: none;
+    margin-bottom: 1.5rem;
+  }
+  
+  .encryption-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .encryption-button:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+  }
+  
+  .encryption-button:hover:not(:disabled) {
+    background-color: #2563eb;
+  }
+  
+  .send-icon {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  
+  .encryption-result {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f1f5f9;
+    border-radius: 0.75rem;
+  }
+  
+  .result-heading {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .shield-icon {
+    color: #10b981;
+  }
+  
+  .encrypted-text {
+    font-family: 'Courier New', Courier, monospace;
+    color: #1e293b;
+    word-break: break-all;
+    background-color: #e2e8f0;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+  }
+  

@@ -1,0 +1,58 @@
+/* terms.css */
+
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff; /* Gray-800 */
+    line-height: 1.7;
+    background-color: #ffffff00;
+  }
+  
+  .terms-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    padding: 20px;
+  }
+  
+  .terms-container p {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .terms-container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    color: #bababa; /* Indigo-800 */
+  }
+  
+  .terms-container a {
+    color: #2563eb;
+    text-decoration: underline;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .terms-container a:hover {
+    color: #1d4ed8;
+  }
+  
+  @media (max-width: 600px) {
+    .terms-container {
+      padding: 40px 16px;
+    }
+  
+    .terms-container h1 {
+      font-size: 2rem;
+    }
+  
+    .terms-container h2 {
+      font-size: 1.25rem;
+    }
+  }
+  

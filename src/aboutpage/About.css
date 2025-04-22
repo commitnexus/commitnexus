@@ -1,0 +1,53 @@
+.about-container {
+  max-width: 800px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 9% 40px;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.about-section {
+  background: #1f2937;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.about-section h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.about-section p,
+.about-section ul {
+  font-size: 1.1rem;
+  color: #90a2bd;
+  line-height: 1.5;
+}
+
+.about-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-section li {
+  background: #eceffb;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  color: #000;
+}

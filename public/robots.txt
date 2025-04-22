@@ -1,0 +1,17 @@
+
+User-agent: *
+Disallow: 
+
+Sitemap: https://commitenexus.xyz/sitemap.xml
+
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+
+User-agent: Googlebot
+Disallow: /private/
+Allow: /public/
+
+User-agent: Bingbot
+Disallow: /private/
+Allow: /public/

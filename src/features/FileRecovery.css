@@ -1,0 +1,84 @@
+.recovery-container {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.code-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100px;
+}
+
+.recover-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.recover-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: white;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message,
+.no-files-message {
+  color: red;
+  margin-top: 1rem;
+}
+
+.structure-title {
+  margin-top: 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.folder-tree {
+  list-style: none;
+  padding-left: 20px;
+  font-family: monospace;
+}
+
+.folder-item {
+  margin-bottom: 5px;
+}
+
+.file-item {
+  margin-left: 15px;
+  font-size: 0.9em;
+}
+
+.download-link {
+  margin-left: 10px;
+  text-decoration: underline;
+  color: #007bff;
+}

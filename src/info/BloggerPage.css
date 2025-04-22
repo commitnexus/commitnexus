@@ -1,0 +1,96 @@
+.blogger-page-wrapper {
+    background-color: #f9fafb00;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    
+  }
+  
+  .blogger-hero {
+    background: linear-gradient(to right, #000b2e, #4f60f6);
+    color: white;
+    text-align: center;
+    padding: 5rem 1rem ;
+    max-width: 90vw;
+    display: block;
+    margin-left: 5%;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  .blog-list-section {
+    padding: 3rem 1rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .blog-cards-container {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  .blog-card-alt {
+    background: #131322;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-card-alt:hover {
+    transform: translateY(-5px);
+    box-shadow: 2px 5px 15px 2px rgba(11, 40, 202);
+
+  }
+  
+  .blog-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .blog-card-body {
+    padding: 1.2rem;
+  }
+  
+  .blog-post-date {
+    color: #a8a8a8;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .blog-post-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  
+  .blog-post-description {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+  
+  .read-more-btn {
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .read-more-btn:hover {
+    background-color: #4f46e5;
+  }
+  
