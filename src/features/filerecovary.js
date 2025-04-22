@@ -81,7 +81,7 @@ const FileRecovery = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/folders/retrive/${trimmedCode}`
+        `https://commitnexusdatabase.onrender.com/api/folders/retrive/${trimmedCode}`
       );
       if (response.data && response.data.files.length > 0) {
         setFiles(response.data.files);

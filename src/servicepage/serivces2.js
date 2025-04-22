@@ -119,7 +119,7 @@ const FileSharing = () => {
     formData.append("filesizeRaw", JSON.stringify(filesizes));
   
     try {
-      const response = await fetch("http://localhost:3000/api/upload", {
+      const response = await fetch("https://commitnexusdatabase.onrender.com/api/upload", {
         method: "POST",
         body: formData,
       });
