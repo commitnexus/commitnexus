@@ -1,84 +1,103 @@
 .recovery-container {
-  padding: 2rem;
-  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: #ffffff00;
+  margin-top: 20%;
+
 }
 
-.title {
-  font-size: 2rem;
+.recovery-card {
+  width: 100%;
+  max-width: 30vw;
+  background-color: #0c0f1a;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.recovery-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.recovery-subtitle {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
   margin-bottom: 1.5rem;
 }
 
-.input-section {
+.input-group {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.code-input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 100px;
+.digit-input {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  outline: none;
+  width: 100%;
 }
 
 .recover-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  border: none;
+  width: 100%;
+  font-size: 1.125rem;
+  font-weight: 500;
+  background-color: #2563eb;
   color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.recover-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.recover-button:hover {
+  background-color: #1e40af;
 }
 
-.spinner {
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-left-color: white;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  display: inline-block;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-message,
-.no-files-message {
-  color: red;
+.error-text {
+  color: #dc2626;
+  text-align: center;
   margin-top: 1rem;
 }
 
-.structure-title {
-  margin-top: 2rem;
-  font-weight: bold;
-  font-size: 1.2rem;
+.success-text {
+  color: #16a34a;
+  text-align: center;
+  margin-top: 1rem;
 }
 
-.folder-tree {
-  list-style: none;
-  padding-left: 20px;
-  font-family: monospace;
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.folder-item {
-  margin-bottom: 5px;
+.ghost-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
-.file-item {
-  margin-left: 15px;
-  font-size: 0.9em;
-}
-
-.download-link {
-  margin-left: 10px;
-  text-decoration: underline;
-  color: #007bff;
+.ghost-reset {
+  color: #4b5563;
 }

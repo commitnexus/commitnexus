@@ -7,6 +7,7 @@ const Head = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const isFeaturesPage = location.pathname === "/features" || location.pathname.startsWith("/features/");
 
@@ -19,6 +20,22 @@ const Head = () => {
     const user = localStorage.getItem("user") || sessionStorage.getItem("user");
     setIsLoggedIn(!!user);
   }, [location]); // update on route change
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
+  
+  const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"));
+  const firstLetter = user?.email?.[0]?.toUpperCase();
+
+
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev)
+  }
 
   return (
     <div className="navv">
@@ -84,19 +101,42 @@ const Head = () => {
     </li>
   </ul>
 ) : (
-  <ul className="ul2">
-    <li>
-      <div className="profile-circle" title="Your Profile">
-        {
-          JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
-            ?.email?.[0]?.toUpperCase()
-        }
-      </div>
-    </li>
-  </ul>
+  <ul className={`ul2 ${isFeaturesPage ? "left-align" : ""}`}>
+            <li >
+              <input type="text" className="search-input" placeholder="Search anything. eg:file code,name ...."/>
+            </li>
+            <li className="profile-wrapper">
+              <div className="profile-circle">
+                {firstLetter}
+              </div>
+            </li>
+            <li>
+            <button className="menudots" onClick={toggleMenu}            >
+              &#8942;
+            </button>
+            </li>
+          </ul>
 )}
 
       </div>
+      {menuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            background: "white",
+            border: "1px solid #ccc",
+            borderRadius: "0.5rem",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+            padding: "0.5rem",
+            zIndex: 10,
+          }}
+        >
+                  <button onClick={handleLogout}>Logout</button>
+                  <p style={{ margin: 0, padding: "0.5rem", cursor: "pointer" }}>Delete</p>
+        </div>
+      )}
     </div>
   );
 };

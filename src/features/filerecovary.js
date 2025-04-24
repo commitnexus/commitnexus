@@ -1,151 +1,172 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './FileRecovery.css';
-import Head from '../homepage/header';
-import Sidebar from '../homepage/sidebar';
+import { QrCode, RefreshCw } from "lucide-react"
+import { motion } from "framer-motion"
+import { useRef, useState } from "react"
+import Head from "../homepage/header"
+import Sidebar from "../homepage/sidebar"
+import "./FileRecovery.css"
 
-// ✅ Converts flat list of files into a nested folder structure
-const buildFolderTree = (files) => {
-  const root = {};
+export default function FileRecovery() {
+  const inputRefs = useRef([])
+  const [code, setCode] = useState(["", "", "", ""])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [result, setResult] = useState(null)
 
-  files.forEach(({ filepath, filename, filesize }) => {
-    const parts = filepath.split('/');
-    let current = root;
-
-    for (let i = 1; i < parts.length; i++) {
-      const part = parts[i];
-      if (i === parts.length - 1) {
-        // It's a file
-        current[part] = { filename, filesize, isFile: true };
-      } else {
-        current[part] = current[part] || {};
-        current = current[part];
-      }
+  const handleInput = (value, index) => {
+    if (/^\d$/.test(value)) {
+      const newCode = [...code]
+      newCode[index] = value
+      setCode(newCode)
+      if (index < 3) inputRefs.current[index + 1]?.focus()
     }
-  });
+  }
 
-  return root;
-};
-
-// ✅ Recursive folder structure UI component
-const FolderTree = ({ tree, parentPath = '' }) => {
-  return (
-    <ul className="folder-tree">
-      {Object.entries(tree).map(([key, value]) => {
-        const fullPath = `${parentPath}/${key}`;
-        if (value.isFile) {
-          return (
-            <li key={fullPath} className="file-item">
-              📄 {value.filename} ({value.filesize} bytes) —
-              <a
-                href={`https://commitenexus.xyz${fullPath}`}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="download-link"
-              >
-                Download
-              </a>
-            </li>
-          );
-        }
-
-        return (
-          <li key={fullPath} className="folder-item">
-            📁 {key}
-            <FolderTree tree={value} parentPath={fullPath} />
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
-const FileRecovery = () => {
-  const [code, setCode] = useState('');
-  const [files, setFiles] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      const newCode = [...code]
+      newCode[index - 1] = ""
+      setCode(newCode)
+      inputRefs.current[index - 1]?.focus()
+    }
+  }
 
   const handleRecover = async () => {
-    const trimmedCode = code.trim();
-
-    if (!/^\d{4}$/.test(trimmedCode)) {
-      setError('Please enter a valid 4-digit code.');
-      return;
+    const finalCode = code.join("")
+    if (finalCode.length !== 4) {
+      setError("Please enter a valid 4-digit code")
+      return
     }
-
-    setError('');
-    setFiles([]);
-    setLoading(true);
 
     try {
-      const response = await axios.get(
-        `https://commitnexusdatabase.onrender.com/api/folders/retrive/${trimmedCode}`
-      );
-      if (response.data && response.data.files.length > 0) {
-        setFiles(response.data.files);
+      setLoading(true)
+      setError(null)
+      const response = await fetch(`https://commitnexusdatabase.onrender.com/api/folders/retrive/${finalCode}`)
+      const data = await response.json()
+      if (response.ok) {
+        setResult(data)
+        console.log("Recovery result:", data)
       } else {
-        setFiles([]);
-        setError('No files found for this code.');
+        setError(data.message || "Invalid code")
       }
     } catch (err) {
-      setError('Failed to recover files. Please try again.');
+      setError("Something went wrong. Please try again.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
+  }
+
+  const buildFolderTree = (files) => {
+    const root = {};
+  
+    files.forEach(({ filepath, filename }) => {
+      const parts = filepath.split('/');
+      let current = root;
+  
+      parts.forEach((part, index) => {
+        if (index === parts.length - 1) {
+          // Last part is the file
+          current[filename] = { type: "file" };
+        } else {
+          if (!current[part]) {
+            current[part] = { type: "folder", children: {} };
+          }
+          current = current[part].children;
+        }
+      });
+    });
+  
+    return root;
   };
+  
+  const renderTree = (node) => {
+    return (
+      <ul style={{ paddingLeft: "1rem", listStyle: "none" }}>
+        {Object.entries(node).map(([name, value]) => (
+          <li key={name}>
+            {value.type === "folder" ? (
+              <>
+                <strong>📁 {name}</strong>
+                {renderTree(value.children)}
+              </>
+            ) : (
+              <span>📄 {name}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  
+  
 
   return (
     <>
       <Head />
       <Sidebar>
         <div className="recovery-container">
-          <h1 className="title">Recover Your Files</h1>
-
-          <div className="input-section">
-            <label htmlFor="codeInput" className="code-label">
-              Enter 4-digit code:
-            </label>
-            <input
-              id="codeInput"
-              type="text"
-              placeholder="1234"
-              value={code}
-              maxLength={4}
-              onChange={(e) => setCode(e.target.value.replace(/\s+/g, ''))}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleRecover();
-              }}
-              className="code-input"
-            />
-            <button
-              onClick={handleRecover}
-              className="recover-button"
-              disabled={loading}
+          <div className="recovery-card">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              {loading ? <span className="spinner"></span> : 'Recover'}
-            </button>
+              <h2 className="recovery-title">Recover Your Files</h2>
+              <p className="recovery-subtitle">
+                Enter your 4-digit file code or scan QR to begin
+              </p>
+
+              <div className="input-group">
+                {[0, 1, 2, 3].map((index) => (
+                  <input
+                    key={index}
+                    maxLength={1}
+                    value={code[index]}
+                    onChange={(e) => handleInput(e.target.value, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    className="digit-input"
+                  />
+                ))}
+              </div>
+
+              <button
+                className="recover-button"
+                onClick={handleRecover}
+                disabled={loading}
+              >
+                {loading ? "Recovering..." : "Recover Files"}
+              </button>
+
+              {error && <p className="error-text">{error}</p>}
+              {result?.files?.length > 0 && (
+  <div style={{ marginTop: "1rem" }}>
+    <h4 style={{ fontSize: "1rem", fontWeight: "600", marginBottom: "0.5rem" }}>Folder Structure:</h4>
+    {renderTree(buildFolderTree(result.files))}
+  </div>
+)}
+
+
+              <div className="button-group">
+                <button className="ghost-button">
+                  <QrCode size={20} /> Scan QR
+                </button>
+                <button
+                  className="ghost-button ghost-reset"
+                  onClick={() => {
+                    setCode(["", "", "", ""])
+                    inputRefs.current[0]?.focus()
+                    setResult(null)
+                    setError(null)
+                  }}
+                >
+                  <RefreshCw size={20} /> Reset
+                </button>
+              </div>
+            </motion.div>
           </div>
 
-          {error && <p className="error-message">{error}</p>}
-
-          {!error && !loading && files.length === 0 && (
-            <p className="no-files-message">No files to display.</p>
-          )}
-
-          <div className="files-list">
-            {files.length > 0 && (
-              <>
-                <h3 className="structure-title">📁 Folder Structure</h3>
-                <FolderTree tree={buildFolderTree(files)} />
-              </>
-            )}
-          </div>
         </div>
       </Sidebar>
     </>
-  );
-};
-
-export default FileRecovery;
+  )
+}
