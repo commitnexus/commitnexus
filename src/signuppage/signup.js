@@ -8,15 +8,48 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Full Name:", fullName, "Email:", email, "Password:", password, "Agreed:", agree);
-    // Send data to backend API
+  
+    if (!agree) {
+      alert("You must agree to the Terms & Conditions.");
+      return;
+    }
+  
+    const userData = {
+      username: fullName,
+      email,
+      password,
+    };
+  
+    try {
+      const response = await fetch("https://commitnexusdatabase.onrender.com/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Signup successful!");
+        // Redirect to login or another page if needed
+      } else {
+        alert(data.message || "Signup failed!");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Something went wrong. Please try again later.");
+    }
   };
+  
 
   return (
     <div className="signup-container">

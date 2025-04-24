@@ -6,10 +6,46 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password, "Remember Me:", rememberMe);
+  
+    const loginData = {
+      email,
+      password,
+    };
+  
+    try {
+      const response = await fetch("https://commitnexusdatabase.onrender.com/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("User Info:", data.user);
+  
+        // Optional: Store token/user data
+        if (rememberMe) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          sessionStorage.setItem("user", JSON.stringify(data.user));
+        }
+  
+        // Redirect or navigate to dashboard
+        window.location.href = "/features/file-sharing"; 
+      } else {
+        alert(data.message || "Login failed!");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again later.");
+    }
   };
+  
 
   return (
     <div className="login-container">
