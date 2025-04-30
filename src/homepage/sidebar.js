@@ -45,7 +45,7 @@ const Sidebar = ({ children }) => {
 
   const toggleCategory = (index) => {
     setOpenCategory(openCategory === index ? null : index);
-  };
+  }; 
 
   return (
     <div className="container2">

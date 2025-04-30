@@ -5,7 +5,7 @@
   min-height: 100vh;
   padding: 1rem;
   background-color: #ffffff00;
-  margin-top: 20%;
+  padding-top: 8%;
 
 }
 
@@ -17,6 +17,13 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
 }
+
+.recovery-card.active {
+  min-width: 70vw;
+  justify-self: end;
+
+}
+
 
 .recovery-title {
   text-align: center;
@@ -39,6 +46,11 @@
   margin-bottom: 1.5rem;
 }
 
+.input-group.active {
+  max-width: 25vw;
+  justify-self: center;
+}
+
 .digit-input {
   text-align: center;
   font-size: 1.25rem;
@@ -51,6 +63,7 @@
   width: 100%;
 }
 
+
 .recover-button {
   width: 100%;
   font-size: 1.125rem;
@@ -62,6 +75,12 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.recover-button.active{
+  display: flex;
+  max-width: 25vw;
+  justify-self: center;
 }
 
 .recover-button:hover {
@@ -100,4 +119,29 @@
 
 .ghost-reset {
   color: #4b5563;
+}
+
+.file-item, .folder-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  border-left: #1e40af5a solid 2px;
+}
+
+.folder-item {
+  background-color: #f0f8ff00;
+  cursor: pointer;
+}
+
+.file-item {
+  background-color: #fdfdfd00;
+}
+
+.optionbutton{
+  background-color: #0c0f1a00;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
 }

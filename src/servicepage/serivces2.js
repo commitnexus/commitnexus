@@ -203,7 +203,7 @@ const handleRemoveSelectedFile = (fileIdOrName) => {
           <ul>
             {category.items.map((item, idx) => (
               <li key={idx} className="list-item">
-                <Link to={item.path}>
+                <Link to={item.path} className={ location.pathname === item.path ? "active" : ""}>
                   {item.title}
                 </Link>
               </li>
